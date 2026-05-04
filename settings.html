@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Sozlamalar | AniComplex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background: rgba(10, 10, 20, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover { color: #ff6a00; }
+        
+        .settings-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .settings-card {
+            background: rgba(15, 15, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .settings-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .settings-title i {
+            color: #ff6a00;
+        }
+        
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+        
+        .setting-label {
+            font-weight: 500;
+        }
+        
+        .setting-desc {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4px;
+        }
+        
+        /* Toggle Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255,255,255,0.2);
+            transition: 0.3s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        /* Select & Input */
+        .setting-select {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 12px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        .setting-input {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 12px;
+            color: #fff;
+            width: 200px;
+        }
+        
+        .save-btn {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            border: none;
+            padding: 12px 32px;
+            border-radius: 40px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(238,9,121,0.4);
+        }
+        
+        .danger-btn {
+            background: rgba(244,67,54,0.8);
+        }
+        
+        .danger-btn:hover {
+            background: #f44336;
+            box-shadow: 0 8px 25px rgba(244,67,54,0.4);
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.9);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border-left: 4px solid #4caf50;
+            animation: slideIn 0.3s, fadeOut 0.3s 2.7s forwards;
+            z-index: 1000;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+        
+        @media (max-width: 768px) {
+            .settings-container { padding: 1rem; }
+            .setting-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .setting-input { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo"><i class="fas fa-dragon"></i> AniComplex</div>
+    <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Bosh sahifa</a>
+        <a href="anime-list.html"><i class="fas fa-list"></i> Animelar</a>
+        <a href="profile.html"><i class="fas fa-user"></i> Profil</a>
+        <a href="settings.html"><i class="fas fa-cog"></i> Sozlamalar</a>
+    </div>
+</nav>
+
+<div class="settings-container">
+    <div class="page-header">
+        <h1><i class="fas fa-sliders-h"></i> Sozlamalar</h1>
+        <p>Sayt va hisob sozlamalarini boshqarish</p>
+    </div>
+    
+    <div id="content">
+        <div style="text-align: center; padding: 3rem;">
+            <div style="width: 50px; height: 50px; border: 3px solid rgba(238,9,121,0.3); border-top-color: #ee0979; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem;"></div>
+            <p>Yuklanmoqda...</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+</style>
+
+<script>
+    let currentUser = null;
+    let settings = {};
+    
+    function loadUserData() {
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const username = localStorage.getItem('username');
+        currentUser = users.find(u => u.username === username);
+        
+        if (!currentUser) {
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        loadSettings();
+    }
+    
+    function loadSettings() {
+        settings = JSON.parse(localStorage.getItem(`settings_${currentUser.id}`) || '{}');
+        renderSettings();
+    }
+    
+    function renderSettings() {
+        const html = `
+            <form id="settingsForm">
+                <!-- Ko'rinish sozlamalari -->
+                <div class="settings-card">
+                    <div class="settings-title">
+                        <i class="fas fa-palette"></i> Ko'rinish
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Dark rejim</div>
+                            <div class="setting-desc">Qorong'u fon va yorqin ranglar</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="darkMode" ${settings.darkMode !== false ? 'checked' : ''}>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Animatsiyalar</div>
+                            <div class="setting-desc">Sahifa animatsiyalarini yoqish/o'chirish</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="animations" ${settings.animations !== false ? 'checked' : ''}>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Til</div>
+                            <div class="setting-desc">Interfeys tilini tanlang</div>
+                        </div>
+                        <select id="language" class="setting-select">
+                            <option value="uz" ${settings.language === 'uz' ? 'selected' : ''}>O'zbekcha</option>
+                            <option value="en" ${settings.language === 'en' ? 'selected' : ''}>English</option>
+                            <option value="ru" ${settings.language === 'ru' ? 'selected' : ''}>Русский</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Bildirishnomalar -->
+                <div class="settings-card">
+                    <div class="settings-title">
+                        <i class="fas fa-bell"></i> Bildirishnomalar
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Yangi qismlar</div>
+                            <div class="setting-desc">Yangi qism chiqqanda xabar olish</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="notifyNewEpisode" ${settings.notifyNewEpisode !== false ? 'checked' : ''}>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Chat xabarlari</div>
+                            <div class="setting-desc">Chatda yangi xabar kelganda bildirish</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="notifyChat" ${settings.notifyChat !== false ? 'checked' : ''}>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Ovoz effektlari</div>
+                            <div class="setting-desc">Tugmalar va bildirishnomalar ovozlari</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="soundEffects" ${settings.soundEffects !== false ? 'checked' : ''}>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Tomosha sozlamalari -->
+                <div class="settings-card">
+                    <div class="settings-title">
+                        <i class="fas fa-play-circle"></i> Tomosha qilish
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Sifat (default)</div>
+                            <div class="setting-desc">Video sifatini tanlang</div>
+                        </div>
+                        <select id="videoQuality" class="setting-select">
+                            <option value="auto" ${settings.videoQuality === 'auto' ? 'selected' : ''}>Avtomatik</option>
+                            <option value="1080p" ${settings.videoQuality === '1080p' ? 'selected' : ''}>1080p</option>
+                            <option value="720p" ${settings.videoQuality === '720p' ? 'selected' : ''}>720p</option>
+                            <option value="480p" ${settings.videoQuality === '480p' ? 'selected' : ''}>480p</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Avtomatik davom ettirish</div>
+                            <div class="setting-desc">Keyingi qism avtomatik boshlansin</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="autoNext" ${settings.autoNext !== false ? 'checked' : ''}>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Subtitrlar</div>
+                            <div class="setting-desc">Subtitrlarni yoqish</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="subtitles" ${settings.subtitles !== false ? 'checked' : ''}>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Maxfiylik va xavfsizlik -->
+                <div class="settings-card">
+                    <div class="settings-title">
+                        <i class="fas fa-shield-alt"></i> Maxfiylik va xavfsizlik
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Tomosha tarixini saqlash</div>
+                            <div class="setting-desc">Tomosha qilgan animelaringiz saqlansin</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="saveHistory" ${settings.saveHistory !== false ? 'checked' : ''}>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Qidiruv tarixi</div>
+                            <div class="setting-desc">Qidiruvlaringiz saqlansin</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="saveSearch" ${settings.saveSearch !== false ? 'checked' : ''}>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Hisob sozlamalari -->
+                <div class="settings-card">
+                    <div class="settings-title">
+                        <i class="fas fa-user-circle"></i> Hisob
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Email manzili</div>
+                            <div class="setting-desc">Hisobingizdagi email</div>
+                        </div>
+                        <input type="email" id="userEmail" class="setting-input" value="${currentUser.email || ''}">
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Parolni o'zgartirish</div>
+                            <div class="setting-desc">Hisobingiz parolini yangilang</div>
+                        </div>
+                        <button type="button" class="setting-select" onclick="changePassword()" style="cursor: pointer;">O'zgartirish</button>
+                    </div>
+                </div>
+                
+                <!-- Ma'lumotlar -->
+                <div class="settings-card">
+                    <div class="settings-title">
+                        <i class="fas fa-database"></i> Ma'lumotlar
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Barcha ma'lumotlarni eksport qilish</div>
+                            <div class="setting-desc">JSON formatida yuklab olish</div>
+                        </div>
+                        <button type="button" class="setting-select" onclick="exportData()" style="cursor: pointer;">Eksport</button>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Ma'lumotlarni tozalash</div>
+                            <div class="setting-desc">Barcha mahalliy ma'lumotlarni o'chirish</div>
+                        </div>
+                        <button type="button" class="setting-select" onclick="clearData()" style="cursor: pointer; background: rgba(244,67,54,0.8);">Tozalash</button>
+                    </div>
+                </div>
+                
+                <button type="submit" class="save-btn">
+                    <i class="fas fa-save"></i> Sozlamalarni saqlash
+                </button>
+            </form>
+        `;
+        
+        document.getElementById('content').innerHTML = html;
+        
+        // Apply dark mode if enabled
+        if (settings.darkMode !== false) {
+            document.body.style.background = 'linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%)';
+        }
+    }
+    
+    function saveSettings() {
+        const newSettings = {
+            darkMode: document.getElementById('darkMode')?.checked,
+            animations: document.getElementById('animations')?.checked,
+            language: document.getElementById('language')?.value,
+            notifyNewEpisode: document.getElementById('notifyNewEpisode')?.checked,
+            notifyChat: document.getElementById('notifyChat')?.checked,
+            soundEffects: document.getElementById('soundEffects')?.checked,
+            videoQuality: document.getElementById('videoQuality')?.value,
+            autoNext: document.getElementById('autoNext')?.checked,
+            subtitles: document.getElementById('subtitles')?.checked,
+            saveHistory: document.getElementById('saveHistory')?.checked,
+            saveSearch: document.getElementById('saveSearch')?.checked
+        };
+        
+        // Update email
+        const newEmail = document.getElementById('userEmail')?.value;
+        if (newEmail && newEmail !== currentUser.email) {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex].email = newEmail;
+                currentUser.email = newEmail;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+        }
+        
+        settings = { ...settings, ...newSettings };
+        localStorage.setItem(`settings_${currentUser.id}`, JSON.stringify(settings));
+        
+        // Apply settings
+        if (settings.darkMode) {
+            document.body.style.background = 'linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%)';
+        } else {
+            document.body.style.background = '#f5f5f5';
+        }
+        
+        showToast('Sozlamalar saqlandi!', 'success');
+    }
+    
+    function changePassword() {
+        const newPass = prompt('Yangi parolni kiriting (kamida 6 belgi):');
+        if (newPass && newPass.length >= 6) {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex].password = newPass;
+                currentUser.password = newPass;
+                localStorage.setItem('users', JSON.stringify(users));
+                showToast('Parol muvaffaqiyatli o\'zgartirildi!', 'success');
+            }
+        } else if (newPass) {
+            alert('Parol kamida 6 belgidan iborat bo\'lishi kerak!');
+        }
+    }
+    
+    function exportData() {
+        const userData = {
+            user: {
+                id: currentUser.id,
+                username: currentUser.username,
+                email: currentUser.email,
+                joinDate: currentUser.joinDate
+            },
+            favorites: JSON.parse(localStorage.getItem(`favorites_${currentUser.id}`) || '[]'),
+            history: JSON.parse(localStorage.getItem(`history_${currentUser.id}`) || '[]'),
+            settings: settings,
+            exportDate: new Date().toISOString()
+        };
+        
+        const blob = new Blob([JSON.stringify(userData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `anicomplex_${currentUser.username}_data.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        showToast('Ma\'lumotlar eksport qilindi!', 'success');
+    }
+    
+    function clearData() {
+        if (confirm('Barcha mahalliy ma\'lumotlarni o\'chirmoqchimisiz? Bu amalni qaytarib bo\'lmaydi! Sevimlilar, tarix va sozlamalar o\'chiriladi.')) {
+            localStorage.removeItem(`favorites_${currentUser.id}`);
+            localStorage.removeItem(`history_${currentUser.id}`);
+            localStorage.removeItem(`settings_${currentUser.id}`);
+            settings = {};
+            localStorage.setItem(`settings_${currentUser.id}`, JSON.stringify(settings));
+            renderSettings();
+            showToast('Ma\'lumotlar tozalandi!', 'success');
+        }
+    }
+    
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.style.borderLeftColor = type === 'success' ? '#4caf50' : '#ff6a00';
+        toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i> ${message}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+    
+    // Form submit
+    document.addEventListener('submit', (e) => {
+        if (e.target.id === 'settingsForm') {
+            e.preventDefault();
+            saveSettings();
+        }
+    });
+    
+    window.changePassword = changePassword;
+    window.exportData = exportData;
+    window.clearData = clearData;
+    
+    loadUserData();
+</script>
+
+</body>
+</html>
