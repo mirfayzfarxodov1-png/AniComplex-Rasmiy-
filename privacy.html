@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maxfiylik siyosati | AniComplex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background: rgba(10, 10, 20, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover { color: #ff6a00; }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .content-card {
+            background: rgba(15, 15, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+        }
+        
+        .section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ff6a00;
+        }
+        
+        .section p {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+        }
+        
+        .section ul {
+            margin-left: 1.5rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+        }
+        
+        .section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .last-updated {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .content-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo"><i class="fas fa-dragon"></i> AniComplex</div>
+    <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Bosh sahifa</a>
+        <a href="anime-list.html"><i class="fas fa-list"></i> Animelar</a>
+        <a href="profile.html"><i class="fas fa-user"></i> Profil</a>
+        <a href="about.html"><i class="fas fa-info-circle"></i> Sayt haqida</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1><i class="fas fa-shield-alt"></i> Maxfiylik siyosati</h1>
+        <p>Sizning ma'lumotlaringiz xavfsizligi biz uchun muhim</p>
+    </div>
+    
+    <div class="content-card">
+        <div class="section">
+            <h2>1. Ma'lumotlar to'plami</h2>
+            <p>AniComplex saytidan foydalanganda quyidagi ma'lumotlar to'planishi mumkin:</p>
+            <ul>
+                <li>Ro'yxatdan o'tish vaqtida: ism, email, username</li>
+                <li>Tomosha tarixi va sevimli animelar ro'yxati</li>
+                <li>Chatdagi xabarlar va izohlar</li>
+                <li>Quiz natijalari va ballari</li>
+                <li>IP manzil va brauzer ma'lumotlari</li>
+                <li>Cookie fayllar orqali saqlanadigan sozlamalar</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>2. Ma'lumotlardan foydalanish</h2>
+            <p>To'plangan ma'lumotlar quyidagi maqsadlarda ishlatiladi:</p>
+            <ul>
+                <li>Sayt funksiyalarini yaxshilash va shaxsiylashtirish</li>
+                <li>Foydalanuvchi tajribasini optimallashtirish</li>
+                <li>Yangi qismlar va yangiliklar haqida xabar berish</li>
+                <li>Texnik muammolarni aniqlash va tuzatish</li>
+                <li>Statistika va tahlillar yuritish</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>3. Ma'lumotlar xavfsizligi</h2>
+            <p>Ma'lumotlaringiz himoyasi uchun quyidagi choralar ko'rilgan:</p>
+            <ul>
+                <li>Barcha ma'lumotlar lokal (brauzer)da saqlanadi</li>
+                <li>Parollar xeshlangan holda saqlanadi</li>
+                <li>SSL shifrlash orqali ma'lumotlar uzatiladi</li>
+                <li>Hech qanday shaxsiy ma'lumotlar uchinchi shaxslarga berilmaydi</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>4. Cookie fayllar</h2>
+            <p>Sayt quyidagi cookie fayllardan foydalanadi:</p>
+            <ul>
+                <li><strong>Sessiya:</strong> Kirish holatini saqlash uchun</li>
+                <li><strong>Sozlamalar:</strong> Tema va til sozlamalarini saqlash</li>
+                <li><strong>Analitika:</strong> Sayt foydalanish statistikasi</li>
+            </ul>
+            <p>Cookie fayllarni brauzer sozlamalaridan o'chirishingiz mumkin.</p>
+        </div>
+        
+        <div class="section">
+            <h2>5. Ma'lumotlarni o'chirish</h2>
+            <p>O'z ma'lumotlaringizni quyidagi usullar bilan o'chirishingiz mumkin:</p>
+            <ul>
+                <li>Brauzer ma'lumotlarini tozalash orqali</li>
+                <li>Hisob ma'lumotlarini profildan o'chirish</li>
+                <li>Admin panel orqali ma'lumotlarni o'chirish</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>6. O'zgartirishlar</h2>
+            <p>Maxfiylik siyosati vaqti-vaqti bilan yangilanishi mumkin. O'zgartirishlar haqida saytda e'lon qilinadi.</p>
+        </div>
+        
+        <div class="section">
+            <h2>7. Bog'lanish</h2>
+            <p>Maxfiylik siyosati haqida savollaringiz bo'lsa, quyidagi manzilga murojaat qiling:</p>
+            <ul>
+                <li><i class="fas fa-envelope"></i> privacy@anicomplex.uz</li>
+                <li><i class="fas fa-phone"></i> +998 93 813 81 10</li>
+            </ul>
+        </div>
+        
+        <div class="last-updated">
+            <i class="fas fa-calendar-alt"></i> So'nggi yangilanish: 15.12.2024
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
