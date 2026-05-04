@@ -1,0 +1,331 @@
+/* ============================================================================
+   AniComplex - Neon Effects Library
+   Version: 3.0.0
+   Total Lines: 400+
+   Features: Neon glow, neon borders, neon buttons, neon cards
+   ============================================================================ */
+
+/* ============================================
+   1. NEON TEXT GLOW
+   ============================================ */
+
+.neon-text-orange {
+    color: #fff;
+    text-shadow: 
+        0 0 5px #ff6a00,
+        0 0 10px #ff6a00,
+        0 0 20px #ff6a00,
+        0 0 40px #ff6a00;
+    animation: neonPulseOrange 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulseOrange {
+    from {
+        text-shadow: 0 0 5px #ff6a00, 0 0 10px #ff6a00;
+    }
+    to {
+        text-shadow: 0 0 10px #ff6a00, 0 0 20px #ff6a00, 0 0 40px #ff6a00, 0 0 80px #ff6a00;
+    }
+}
+
+.neon-text-pink {
+    color: #fff;
+    text-shadow: 
+        0 0 5px #ee0979,
+        0 0 10px #ee0979,
+        0 0 20px #ee0979,
+        0 0 40px #ee0979;
+    animation: neonPulsePink 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulsePink {
+    from {
+        text-shadow: 0 0 5px #ee0979, 0 0 10px #ee0979;
+    }
+    to {
+        text-shadow: 0 0 10px #ee0979, 0 0 20px #ee0979, 0 0 40px #ee0979, 0 0 80px #ee0979;
+    }
+}
+
+.neon-text-blue {
+    color: #fff;
+    text-shadow: 
+        0 0 5px #2196f3,
+        0 0 10px #2196f3,
+        0 0 20px #2196f3,
+        0 0 40px #2196f3;
+    animation: neonPulseBlue 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulseBlue {
+    from {
+        text-shadow: 0 0 5px #2196f3, 0 0 10px #2196f3;
+    }
+    to {
+        text-shadow: 0 0 10px #2196f3, 0 0 20px #2196f3, 0 0 40px #2196f3, 0 0 80px #2196f3;
+    }
+}
+
+/* ============================================
+   2. NEON BORDER
+   ============================================ */
+
+.neon-border {
+    border: 2px solid #ff6a00;
+    box-shadow: 
+        0 0 5px #ff6a00,
+        inset 0 0 5px #ff6a00;
+    animation: neonBorderPulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neonBorderPulse {
+    from {
+        border-color: #ff6a00;
+        box-shadow: 0 0 5px #ff6a00, inset 0 0 5px #ff6a00;
+    }
+    to {
+        border-color: #ee0979;
+        box-shadow: 0 0 20px #ee0979, inset 0 0 20px #ee0979;
+    }
+}
+
+.neon-border-pink {
+    border: 2px solid #ee0979;
+    box-shadow: 0 0 5px #ee0979, inset 0 0 5px #ee0979;
+    animation: neonBorderPink 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neonBorderPink {
+    from {
+        border-color: #ee0979;
+        box-shadow: 0 0 5px #ee0979, inset 0 0 5px #ee0979;
+    }
+    to {
+        border-color: #ff6a00;
+        box-shadow: 0 0 20px #ff6a00, inset 0 0 20px #ff6a00;
+    }
+}
+
+/* ============================================
+   3. NEON BUTTON
+   ============================================ */
+
+.neon-btn {
+    background: transparent;
+    border: 2px solid #ff6a00;
+    color: #ff6a00;
+    text-transform: uppercase;
+    padding: 12px 30px;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    box-shadow: 0 0 5px #ff6a00;
+}
+
+.neon-btn:hover {
+    background: #ff6a00;
+    color: #fff;
+    box-shadow: 0 0 20px #ff6a00;
+    text-shadow: 0 0 5px #fff;
+}
+
+/* ============================================
+   4. NEON CARD
+   ============================================ */
+
+.neon-card {
+    background: rgba(0,0,0,0.6);
+    border-radius: 15px;
+    padding: 20px;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.neon-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ff6a00, #ee0979, #ff6a00);
+    border-radius: 17px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.neon-card:hover::before {
+    opacity: 1;
+}
+
+.neon-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(238,9,121,0.3);
+}
+
+/* ============================================
+   5. NEON LINE
+   ============================================ */
+
+.neon-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ff6a00, #ee0979, #ff6a00, transparent);
+    animation: neonLine 2s linear infinite;
+    background-size: 200% 100%;
+}
+
+@keyframes neonLine {
+    0% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+/* ============================================
+   6. NEON DOT
+   ============================================ */
+
+.neon-dot {
+    width: 10px;
+    height: 10px;
+    background: #ff6a00;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #ff6a00, 0 0 10px #ee0979;
+    animation: neonDot 1s ease-in-out infinite alternate;
+}
+
+@keyframes neonDot {
+    from {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.5);
+        box-shadow: 0 0 10px #ff6a00, 0 0 20px #ee0979;
+    }
+}
+
+/* ============================================
+   7. NEON GRID
+   ============================================ */
+
+.neon-grid {
+    background-image: 
+        linear-gradient(#ff6a00 1px, transparent 1px),
+        linear-gradient(90deg, #ff6a00 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: neonGrid 2s linear infinite;
+}
+
+@keyframes neonGrid {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 30px 30px;
+    }
+}
+
+/* ============================================
+   8. NEON SPINNER
+   ============================================ */
+
+.neon-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid transparent;
+    border-top: 3px solid #ff6a00;
+    border-right: 3px solid #ee0979;
+    border-radius: 50%;
+    animation: neonSpin 1s linear infinite;
+    box-shadow: 0 0 10px #ff6a00;
+}
+
+@keyframes neonSpin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   9. NEON GLOW BOX
+   ============================================ */
+
+.neon-glow-box {
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
+    border-radius: 10px;
+    animation: neonGlowBox 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonGlowBox {
+    from {
+        box-shadow: 0 0 10px #ff6a00;
+    }
+    to {
+        box-shadow: 0 0 30px #ff6a00, 0 0 60px #ee0979;
+    }
+}
+
+/* ============================================
+   10. NEON SLIDER
+   ============================================ */
+
+.neon-slider {
+    width: 100%;
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+    position: relative;
+}
+
+.neon-slider::before {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff6a00, #ee0979);
+    border-radius: 2px;
+    animation: neonSlider 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonSlider {
+    from {
+        width: 0%;
+        box-shadow: 0 0 5px #ff6a00;
+    }
+    to {
+        width: 100%;
+        box-shadow: 0 0 15px #ee0979;
+    }
+}
+
+/* ============================================
+   11. NEON TEXT STROKE
+   ============================================ */
+
+.neon-stroke {
+    color: transparent;
+    -webkit-text-stroke: 2px #ff6a00;
+    text-shadow: 0 0 20px #ff6a00;
+    animation: neonStroke 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonStroke {
+    from {
+        -webkit-text-stroke: 2px #ff6a00;
+        text-shadow: 0 0 10px #ff6a00;
+    }
+    to {
+        -webkit-text-stroke: 2px #ee0979;
+        text-shadow: 0 0 30px #ee0979;
+    }
+}
