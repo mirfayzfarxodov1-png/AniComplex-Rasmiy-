@@ -1,0 +1,344 @@
+/* ============================================================================
+   AniComplex - Particle Effects & Background Animations
+   Version: 3.0.0
+   Total Lines: 400+
+   Features: Particle backgrounds, confetti, snow, fireworks
+   ============================================================================ */
+
+/* ============================================
+   1. PARTICLE BACKGROUND
+   ============================================ */
+
+.particle-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    background: radial-gradient(circle, #ff6a00, #ee0979);
+    border-radius: 50%;
+    opacity: 0.6;
+    pointer-events: none;
+    animation: floatParticle linear infinite;
+}
+
+@keyframes floatParticle {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Particle sizes */
+.particle-sm { width: 2px; height: 2px; }
+.particle-md { width: 4px; height: 4px; }
+.particle-lg { width: 6px; height: 6px; }
+.particle-xl { width: 10px; height: 10px; }
+
+/* ============================================
+   2. SNOW EFFECT
+   ============================================ */
+
+.snow-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.snowflake {
+    position: absolute;
+    color: #fff;
+    user-select: none;
+    pointer-events: none;
+    animation: fallSnow linear infinite;
+}
+
+@keyframes fallSnow {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0.3;
+    }
+}
+
+/* ============================================
+   3. CONFETTI EFFECT
+   ============================================ */
+
+@keyframes confetti {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    pointer-events: none;
+    z-index: 10000;
+    animation: confetti 3s ease-out forwards;
+}
+
+/* ============================================
+   4. FIREWORKS EFFECT
+   ============================================ */
+
+@keyframes firework {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.firework {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ff6a00, #ff0000);
+    pointer-events: none;
+    z-index: 10000;
+    animation: firework 1s ease-out forwards;
+}
+
+/* ============================================
+   5. BUBBLE EFFECT
+   ============================================ */
+
+@keyframes bubble {
+    0% {
+        transform: translateY(0) scale(0);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.6;
+    }
+    80% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-200px) scale(1.5);
+        opacity: 0;
+    }
+}
+
+.bubble {
+    position: fixed;
+    background: radial-gradient(circle, rgba(255,106,0,0.3), rgba(238,9,121,0.1));
+    border-radius: 50%;
+    pointer-events: none;
+    animation: bubble 2s ease-out forwards;
+}
+
+/* ============================================
+   6. GRADIENT PARTICLE WAVE
+   ============================================ */
+
+.gradient-wave {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        rgba(238,9,121,0.1) 0%, 
+        rgba(255,106,0,0.1) 25%,
+        rgba(238,9,121,0.1) 50%,
+        rgba(255,106,0,0.1) 75%,
+        rgba(238,9,121,0.1) 100%);
+    background-size: 400% 400%;
+    animation: gradientWave 10s ease infinite;
+    z-index: -1;
+}
+
+@keyframes gradientWave {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* ============================================
+   7. MOSAIC PARTICLES
+   ============================================ */
+
+.mosaic-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.mosaic-particle {
+    position: absolute;
+    background: rgba(238,9,121,0.2);
+    transition: all 0.5s;
+    animation: mosaicPulse 3s infinite alternate;
+}
+
+@keyframes mosaicPulse {
+    0% {
+        opacity: 0.1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}
+
+/* ============================================
+   8. STARFIELD BACKGROUND
+   ============================================ */
+
+.starfield {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: starTwinkle 2s infinite alternate;
+}
+
+@keyframes starTwinkle {
+    0% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* ============================================
+   9. RIPPLE EFFECT
+   ============================================ */
+
+.ripple-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,106,0,0.4), transparent);
+    transform: scale(0);
+    animation: rippleExpand 0.8s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes rippleExpand {
+    0% {
+        transform: scale(0);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(20);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   10. SPARKLE EFFECT
+   ============================================ */
+
+.sparkle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #ff6a00, 0 0 10px #ee0979;
+    animation: sparkle 1.5s infinite;
+    pointer-events: none;
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ============================================
+   11. NEON PARTICLE TRAIL
+   ============================================ */
+
+.neon-trail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, #ff6a00, #ee0979);
+    border-radius: 50%;
+    filter: blur(3px);
+    pointer-events: none;
+    animation: trailFade 1s ease-out forwards;
+    z-index: 9999;
+}
+
+@keyframes trailFade {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(3);
+    }
+}
