@@ -1,0 +1,344 @@
+/* ============================================================================
+   AniComplex - Scroll Animations Library
+   Version: 3.0.0
+   Total Lines: 500+
+   Features: AOS style animations, parallax, sticky elements
+   ============================================================================ */
+
+/* ============================================
+   1. SCROLL REVEAL ANIMATIONS
+   ============================================ */
+
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-reveal-left.revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.scroll-reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-reveal-right.revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.scroll-reveal-scale {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-reveal-scale.revealed {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.scroll-reveal-rotate {
+    opacity: 0;
+    transform: rotateX(90deg);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-reveal-rotate.revealed {
+    opacity: 1;
+    transform: rotateX(0);
+}
+
+/* ============================================
+   2. SCROLL PARALLAX
+   ============================================ */
+
+.parallax {
+    transition: transform 0.1s linear;
+    will-change: transform;
+}
+
+.parallax-slow {
+    transition: transform 0.1s linear;
+}
+
+.parallax-fast {
+    transition: transform 0.05s linear;
+}
+
+/* ============================================
+   3. SCROLL PROGRESS BAR
+   ============================================ */
+
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6a00, #ee0979);
+    z-index: 10000;
+    transition: width 0.1s;
+}
+
+/* ============================================
+   4. SCROLL TRIGGERED COUNTER
+   ============================================ */
+
+.counter-animate {
+    transition: all 0.5s;
+}
+
+/* ============================================
+   5. STICKY ON SCROLL
+   ============================================ */
+
+.sticky-on-scroll {
+    position: sticky;
+    top: 20px;
+    transition: all 0.3s;
+}
+
+.sticky-on-scroll.scrolled {
+    top: 0;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+/* ============================================
+   6. FADE ON SCROLL
+   ============================================ */
+
+.fade-on-scroll {
+    transition: opacity 0.3s;
+}
+
+.fade-on-scroll.scrolled {
+    opacity: 0.5;
+}
+
+/* ============================================
+   7. SCROLL INDICATOR
+   ============================================ */
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scrollBounce 2s infinite;
+}
+
+@keyframes scrollBounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(15px);
+    }
+}
+
+/* ============================================
+   8. SECTION TRANSITIONS
+   ============================================ */
+
+.section-transition {
+    transition: all 0.5s;
+}
+
+.section-transition.in-view {
+    background: rgba(15,15,30,0.8);
+    backdrop-filter: blur(10px);
+}
+
+/* ============================================
+   9. SCROLL-DRIVEN TIMELINE
+   ============================================ */
+
+.timeline-item {
+    position: relative;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.6s;
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ============================================
+   10. SCROLL TRIGGERED ZOOM
+   ============================================ */
+
+.zoom-on-scroll {
+    transition: transform 0.3s;
+}
+
+.zoom-on-scroll.scrolled {
+    transform: scale(1.05);
+}
+
+/* ============================================
+   11. SCROLL DEPTH BACKGROUND
+   ============================================ */
+
+.depth-bg {
+    transition: transform 0.2s linear;
+    will-change: transform;
+}
+
+/* ============================================
+   12. SCROLL TO TOP BUTTON
+   ============================================ */
+
+.scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.scroll-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-top:hover {
+    transform: translateY(-5px) scale(1.1);
+}
+
+/* ============================================
+   13. SCROLL PROGRESS CIRCLE
+   ============================================ */
+
+.progress-circle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    z-index: 1000;
+}
+
+.progress-circle svg {
+    transform: rotate(-90deg);
+}
+
+.progress-circle circle {
+    fill: none;
+    stroke: #ff6a00;
+    stroke-width: 3;
+    stroke-dasharray: 180;
+    stroke-dashoffset: 180;
+}
+
+/* ============================================
+   14. SCROLL REVEAL WITH DELAY
+   ============================================ */
+
+[data-scroll-delay="100"] { transition-delay: 0.1s; }
+[data-scroll-delay="200"] { transition-delay: 0.2s; }
+[data-scroll-delay="300"] { transition-delay: 0.3s; }
+[data-scroll-delay="400"] { transition-delay: 0.4s; }
+[data-scroll-delay="500"] { transition-delay: 0.5s; }
+[data-scroll-delay="600"] { transition-delay: 0.6s; }
+[data-scroll-delay="700"] { transition-delay: 0.7s; }
+[data-scroll-delay="800"] { transition-delay: 0.8s; }
+[data-scroll-delay="900"] { transition-delay: 0.9s; }
+[data-scroll-delay="1000"] { transition-delay: 1s; }
+
+/* ============================================
+   15. SCROLL REVEAL DURATIONS
+   ============================================ */
+
+[data-scroll-duration="300"] { transition-duration: 0.3s; }
+[data-scroll-duration="500"] { transition-duration: 0.5s; }
+[data-scroll-duration="700"] { transition-duration: 0.7s; }
+[data-scroll-duration="1000"] { transition-duration: 1s; }
+[data-scroll-duration="1500"] { transition-duration: 1.5s; }
+
+/* ============================================
+   16. SCROLL COLOR CHANGE
+   ============================================ */
+
+.color-on-scroll {
+    transition: all 0.3s;
+}
+
+.color-on-scroll.scrolled {
+    color: #ff6a00;
+}
+
+/* ============================================
+   17. SCROLL BORDER EFFECT
+   ============================================ */
+
+.border-on-scroll {
+    transition: all 0.3s;
+}
+
+.border-on-scroll.scrolled {
+    border-bottom: 2px solid #ff6a00;
+}
+
+/* ============================================
+   18. SCROLL SHADOW
+   ============================================ */
+
+.shadow-on-scroll {
+    transition: all 0.3s;
+}
+
+.shadow-on-scroll.scrolled {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* ============================================
+   19. SCROLL BLUR
+   ============================================ */
+
+.blur-on-scroll {
+    transition: all 0.3s;
+}
+
+.blur-on-scroll.scrolled {
+    filter: blur(5px);
+}
+
+/* ============================================
+   20. SCROLL BRIGHTNESS
+   ============================================ */
+
+.brightness-on-scroll {
+    transition: all 0.3s;
+}
+
+.brightness-on-scroll.scrolled {
+    filter: brightness(0.8);
+}
