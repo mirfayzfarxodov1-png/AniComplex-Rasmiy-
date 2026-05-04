@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Sevimlilar | AniComplex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        /* Navbar */
+        .navbar {
+            background: rgba(10, 10, 20, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover { color: #ff6a00; }
+        
+        /* Container */
+        .favorites-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .page-header p {
+            color: rgba(255,255,255,0.6);
+        }
+        
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(15,15,30,0.5);
+            border-radius: 20px;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255,255,255,0.5);
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 40px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #fff;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            border-color: transparent;
+        }
+        
+        /* Stats Card */
+        .stats-card {
+            background: rgba(15,15,30,0.5);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            text-align: center;
+        }
+        
+        .stat-item {
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff6a00;
+        }
+        
+        .stat-label {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+        }
+        
+        /* Anime Grid */
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .anime-card {
+            background: rgba(20,20,40,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            cursor: pointer;
+            animation: fadeInUp 0.5s ease backwards;
+            position: relative;
+        }
+        
+        .anime-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(238,9,121,0.3);
+        }
+        
+        .anime-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .anime-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .anime-info {
+            padding: 1rem;
+        }
+        
+        .anime-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .anime-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 0.5rem;
+        }
+        
+        .remove-btn {
+            width: 100%;
+            padding: 8px;
+            background: rgba(244,67,54,0.8);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.8rem;
+        }
+        
+        .remove-btn:hover {
+            background: #f44336;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem;
+            background: rgba(15,15,30,0.5);
+            border-radius: 30px;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .empty-state p {
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 1.5rem;
+        }
+        
+        .browse-btn {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .browse-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(238,9,121,0.4);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .page-btn {
+            padding: 8px 14px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .page-btn.active, .page-btn:hover {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+        }
+        
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.9);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border-left: 4px solid #4caf50;
+            animation: slideIn 0.3s, fadeOut 0.3s 2.7s forwards;
+            z-index: 1000;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+        
+        @media (max-width: 768px) {
+            .favorites-container { padding: 1rem; }
+            .filter-bar { flex-direction: column; }
+            .filter-group { justify-content: center; }
+            .anime-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+            .stats-card { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo"><i class="fas fa-dragon"></i> AniComplex</div>
+    <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Bosh sahifa</a>
+        <a href="anime-list.html"><i class="fas fa-list"></i> Animelar</a>
+        <a href="quiz.html"><i class="fas fa-question-circle"></i> Quiz</a>
+        <a href="profile.html"><i class="fas fa-user"></i> Profil</a>
+    </div>
+</nav>
+
+<div class="favorites-container">
+    <div class="page-header">
+        <h1><i class="fas fa-heart" style="color: #ee0979;"></i> Sevimli animelar</h1>
+        <p>Sizga yoqqan animelar ro'yxati</p>
+    </div>
+    
+    <div id="content">
+        <div class="loading" style="text-align: center; padding: 3rem;">
+            <div class="spinner" style="width: 50px; height: 50px; border: 3px solid rgba(238,9,121,0.3); border-top-color: #ee0979; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem;"></div>
+            <p>Yuklanmoqda...</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+</style>
+
+<script>
+    let currentUser = null;
+    let favoritesList = [];
+    let allAnime = [];
+    let currentFilter = 'all';
+    let searchQuery = '';
+    let currentPage = 1;
+    const itemsPerPage = 24;
+    
+    // Load user data
+    function loadUserData() {
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const username = localStorage.getItem('username');
+        currentUser = users.find(u => u.username === username);
+        
+        if (!currentUser) {
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        loadFavorites();
+    }
+    
+    // Load favorites
+    function loadFavorites() {
+        favoritesList = JSON.parse(localStorage.getItem(`favorites_${currentUser.id}`) || '[]');
+        allAnime = JSON.parse(localStorage.getItem('animeList') || '[]');
+        
+        renderPage();
+    }
+    
+    // Get favorite anime objects
+    function getFavoriteAnime() {
+        return allAnime.filter(anime => favoritesList.includes(anime.id));
+    }
+    
+    // Filter and search
+    function getFilteredAnime() {
+        let filtered = getFavoriteAnime();
+        
+        // Apply search
+        if (searchQuery) {
+            const query = searchQuery.toLowerCase();
+            filtered = filtered.filter(anime => 
+                anime.name.toLowerCase().includes(query)
+            );
+        }
+        
+        // Apply filter by status
+        if (currentFilter !== 'all') {
+            filtered = filtered.filter(anime => anime.status === currentFilter);
+        }
+        
+        // Sort by latest added (favorites order)
+        filtered.sort((a, b) => {
+            const indexA = favoritesList.indexOf(a.id);
+            const indexB = favoritesList.indexOf(b.id);
+            return indexA - indexB;
+        });
+        
+        return filtered;
+    }
+    
+    // Render page
+    function renderPage() {
+        const filtered = getFilteredAnime();
+        const totalItems = filtered.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        const start = (currentPage - 1) * itemsPerPage;
+        const paginated = filtered.slice(start, start + itemsPerPage);
+        
+        const html = `
+            <div class="stats-card">
+                <div class="stat-item">
+                    <div class="stat-number">${totalItems}</div>
+                    <div class="stat-label">Sevimli animelar</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">${getFavoriteAnime().reduce((sum, a) => sum + (a.episodes || 0), 0)}</div>
+                    <div class="stat-label">Jami qismlar</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">${getFavoriteAnime().filter(a => a.status === 'Davom etmoqda').length}</div>
+                    <div class="stat-label">Davom etayotgan</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">${getFavoriteAnime().filter(a => a.status === 'Tugagan').length}</div>
+                    <div class="stat-label">Tugagan</div>
+                </div>
+            </div>
+            
+            <div class="filter-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Sevimli animelar ichidan qidirish..." value="${searchQuery}">
+                </div>
+                <div class="filter-group">
+                    <button class="filter-btn ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">Barchasi</button>
+                    <button class="filter-btn ${currentFilter === 'Davom etmoqda' ? 'active' : ''}" data-filter="Davom etmoqda">Davom etmoqda</button>
+                    <button class="filter-btn ${currentFilter === 'Tugagan' ? 'active' : ''}" data-filter="Tugagan">Tugagan</button>
+                </div>
+            </div>
+            
+            ${paginated.length === 0 ? `
+                <div class="empty-state">
+                    <i class="fas fa-heart-broken"></i>
+                    <h3>Sevimli animelar yo'q</h3>
+                    <p>Hali hech qanday animeni sevimlilarga qo'shmagansiz</p>
+                    <button class="browse-btn" onclick="location.href='anime-list.html'">
+                        <i class="fas fa-search"></i> Animelarni ko'rish
+                    </button>
+                </div>
+            ` : `
+                <div class="anime-grid">
+                    ${paginated.map((anime, idx) => `
+                        <div class="anime-card" style="animation-delay: ${idx * 0.03}s">
+                            <div onclick="location.href='anime-detail.html?id=${anime.id}'">
+                                <img src="${anime.image}" onerror="this.src='https://via.placeholder.com/220x180?text=Anime'" alt="${anime.name}">
+                                <div class="anime-info">
+                                    <div class="anime-title">${anime.name}</div>
+                                    <div class="anime-meta">
+                                        <span><i class="fas fa-film"></i> ${anime.episodes || '?'} qism</span>
+                                        <span><i class="fas fa-star"></i> ${anime.rating || 'N/A'}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="remove-btn" onclick="removeFromFavorites(${anime.id})">
+                                <i class="fas fa-trash"></i> Sevimlilardan o'chirish
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+                ${renderPagination(totalPages)}
+            `}
+        `;
+        
+        document.getElementById('content').innerHTML = html;
+        
+        // Bind events
+        document.getElementById('searchInput')?.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            currentPage = 1;
+            renderPage();
+        });
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentFilter = btn.dataset.filter;
+                currentPage = 1;
+                renderPage();
+            });
+        });
+    }
+    
+    function renderPagination(totalPages) {
+        if (totalPages <= 1) return '';
+        
+        let html = '<div class="pagination">';
+        
+        if (currentPage > 1) {
+            html += `<button class="page-btn" data-page="${currentPage - 1}"><i class="fas fa-chevron-left"></i></button>`;
+        }
+        
+        for (let i = 1; i <= Math.min(totalPages, 5); i++) {
+            html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+        }
+        
+        if (totalPages > 5) {
+            html += `<span>...</span>`;
+            html += `<button class="page-btn" data-page="${totalPages}">${totalPages}</button>`;
+        }
+        
+        if (currentPage < totalPages) {
+            html += `<button class="page-btn" data-page="${currentPage + 1}"><i class="fas fa-chevron-right"></i></button>`;
+        }
+        
+        html += '</div>';
+        
+        setTimeout(() => {
+            document.querySelectorAll('.page-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const page = parseInt(btn.dataset.page);
+                    if (page) {
+                        currentPage = page;
+                        renderPage();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+            });
+        }, 100);
+        
+        return html;
+    }
+    
+    // Remove from favorites
+    function removeFromFavorites(animeId) {
+        favoritesList = favoritesList.filter(id => id !== animeId);
+        localStorage.setItem(`favorites_${currentUser.id}`, JSON.stringify(favoritesList));
+        
+        // Update page
+        if (getFilteredAnime().length === 0 && currentPage > 1) {
+            currentPage--;
+        }
+        
+        renderPage();
+        showToast('Sevimlilardan o\'chirildi', 'info');
+    }
+    
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.style.borderLeftColor = type === 'success' ? '#4caf50' : '#ff6a00';
+        toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i> ${message}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+    
+    // Make function global for onclick
+    window.removeFromFavorites = removeFromFavorites;
+    
+    // Initialize
+    loadUserData();
+</script>
+
+</body>
+</html>
