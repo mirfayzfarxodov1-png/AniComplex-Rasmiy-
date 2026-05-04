@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Sahifa topilmadi | AniComplex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .error-container {
+            text-align: center;
+            max-width: 600px;
+            animation: fadeInUp 0.6s;
+        }
+        
+        .error-code {
+            font-size: 8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .error-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            padding: 12px 28px;
+            border-radius: 40px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(238,9,121,0.4);
+        }
+        
+        .suggestions {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        
+        .suggestions a {
+            color: #ff6a00;
+            text-decoration: none;
+            padding: 5px 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        
+        .suggestions a:hover {
+            background: rgba(238,9,121,0.2);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .error-code { font-size: 5rem; }
+            h1 { font-size: 1.5rem; }
+        }
+        
+        .anime-tip {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-icon">
+            <i class="fas fa-dragon"></i>
+        </div>
+        <div class="error-code">404</div>
+        <h1>Sahifa topilmadi</h1>
+        <p>
+            Kechirasiz, siz qidirgan sahifa mavjud emas yoki o'chirilgan bo'lishi mumkin.<br>
+            Qidiruvni davom ettirish uchun asosiy sahifaga o'ting.
+        </p>
+        
+        <a href="index.html" class="btn">
+            <i class="fas fa-home"></i> Bosh sahifaga qaytish
+        </a>
+        
+        <div class="suggestions">
+            <a href="anime-list.html">Animelar</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="profile.html">Profil</a>
+            <a href="contact.html">Bog'lanish</a>
+        </div>
+        
+        <div class="anime-tip">
+            <i class="fas fa-info-circle"></i> Anime tavsiyasi: 
+            <strong>Attack on Titan</strong> - So'nggi mavsum chiqdi!
+        </div>
+    </div>
+</body>
+</html>
