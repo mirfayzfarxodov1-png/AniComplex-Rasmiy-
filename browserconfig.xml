@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+    <msapplication>
+        <!-- Tile umumiy sozlamalari -->
+        <tile>
+            <square70x70logo src="assets/icons/icon-70x70.png"/>
+            <square150x150logo src="assets/icons/icon-150x150.png"/>
+            <wide310x150logo src="assets/icons/icon-310x150.png"/>
+            <square310x310logo src="assets/icons/icon-310x310.png"/>
+            <TileColor>#0a0a0a</TileColor>
+            <TileImage src="assets/icons/icon-310x310.png"/>
+        </tile>
+        
+        <!-- Taskbar pinlash sozlamalari -->
+        <msapplication>
+            <taskbar>
+                <taskbar>
+                    <shortcut>
+                        <url>https://anicomplex.uz/</url>
+                        <icon>assets/icons/icon-70x70.png</icon>
+                        <title>AniComplex</title>
+                    </shortcut>
+                </taskbar>
+            </taskbar>
+        </msapplication>
+        
+        <!-- Start menyusi sozlamalari -->
+        <startmenu>
+            <startmenu>
+                <shortcut>
+                    <url>https://anicomplex.uz/</url>
+                    <icon>assets/icons/icon-150x150.png</icon>
+                    <title>AniComplex Anime Portal</title>
+                </shortcut>
+            </startmenu>
+        </startmenu>
+        
+        <!-- Bildirishnoma sozlamalari -->
+        <notification>
+            <polling-uri>https://anicomplex.uz/notifications</polling-uri>
+            <polling-interval>3600</polling-interval>
+        </notification>
+        
+        <!-- Qidiruv sozlamalari -->
+        <search>
+            <search>
+                <SearchUrl>https://anicomplex.uz/search?q={searchTerms}</SearchUrl>
+                <SearchProviderName>AniComplex</SearchProviderName>
+                <SearchProviderIcon>assets/icons/icon-16x16.png</SearchProviderIcon>
+            </search>
+        </search>
+        
+        <!-- Tema rangi -->
+        <theme>
+            <theme>
+                <ThemeColor>#0a0a0a</ThemeColor>
+                <BackgroundColor>#0a0a0a</BackgroundColor>
+                <AccentColor>#ff6a00</AccentColor>
+            </theme>
+        </theme>
+        
+        <!-- Live tile yangilanish sozlamalari -->
+        <liveTile>
+            <liveTile>
+                <TileUpdate>
+                    <TileUpdate>
+                        <Frequency>3600</Frequency>
+                        <Url>https://anicomplex.uz/tile-update</Url>
+                    </TileUpdate>
+                </TileUpdate>
+                <TileBinding>
+                    <TileBinding>
+                        <TileTemplate>TileSquare150x150Text01</TileTemplate>
+                        <TileTemplate>TileSquare310x310Text01</TileTemplate>
+                        <TileTemplate>TileWide310x150Text01</TileTemplate>
+                    </TileBinding>
+                </TileBinding>
+            </liveTile>
+        </liveTile>
+        
+        <!-- Badge sozlamalari -->
+        <badge>
+            <badge>
+                <BadgeUrl>https://anicomplex.uz/badge</BadgeUrl>
+                <BadgeUpdateInterval>3600</BadgeUpdateInterval>
+            </badge>
+        </badge>
+        
+    </msapplication>
+</browserconfig>
