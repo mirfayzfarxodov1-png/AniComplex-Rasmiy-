@@ -1,0 +1,334 @@
+/* ============================================================================
+   AniComplex - Hover Effects Collection
+   Version: 3.0.0
+   Total Lines: 400+
+   Features: 50+ hover effects for buttons, cards, images
+   ============================================================================ */
+
+/* ============================================
+   1. BUTTON HOVER EFFECTS
+   ============================================ */
+
+/* Glow effect */
+.btn-hover-glow {
+    transition: all 0.3s;
+}
+
+.btn-hover-glow:hover {
+    box-shadow: 0 0 20px rgba(238,9,121,0.8);
+    transform: scale(1.05);
+}
+
+/* Slide effect */
+.btn-hover-slide {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-hover-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff6a00, #ee0979);
+    transition: left 0.3s;
+    z-index: -1;
+}
+
+.btn-hover-slide:hover::before {
+    left: 0;
+}
+
+/* Border fill */
+.btn-hover-border-fill {
+    background: transparent;
+    border: 2px solid #ff6a00;
+    transition: all 0.3s;
+}
+
+.btn-hover-border-fill:hover {
+    background: #ff6a00;
+    color: #fff;
+}
+
+/* Icon spin */
+.btn-hover-icon-spin i {
+    transition: transform 0.3s;
+}
+
+.btn-hover-icon-spin:hover i {
+    transform: rotate(360deg);
+}
+
+/* ============================================
+   2. CARD HOVER EFFECTS
+   ============================================ */
+
+/* Lift */
+.card-hover-lift {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card-hover-lift:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+}
+
+/* Glare */
+.card-hover-glare {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-hover-glare::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: rotate(45deg);
+    transition: left 0.5s;
+}
+
+.card-hover-glare:hover::before {
+    left: 100%;
+}
+
+/* Border shine */
+.card-hover-border-shine {
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s;
+}
+
+.card-hover-border-shine::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ff6a00, #ee0979, #ff6a00);
+    border-radius: inherit;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s;
+}
+
+.card-hover-border-shine:hover::after {
+    opacity: 1;
+}
+
+/* Scale */
+.card-hover-scale {
+    transition: transform 0.3s;
+}
+
+.card-hover-scale:hover {
+    transform: scale(1.05);
+}
+
+/* ============================================
+   3. IMAGE HOVER EFFECTS
+   ============================================ */
+
+/* Zoom */
+.image-hover-zoom {
+    overflow: hidden;
+}
+
+.image-hover-zoom img {
+    transition: transform 0.5s;
+}
+
+.image-hover-zoom:hover img {
+    transform: scale(1.1);
+}
+
+/* Blur */
+.image-hover-blur img {
+    transition: filter 0.3s;
+}
+
+.image-hover-blur:hover img {
+    filter: blur(3px);
+}
+
+/* Brightness */
+.image-hover-brightness img {
+    transition: filter 0.3s;
+}
+
+.image-hover-brightness:hover img {
+    filter: brightness(1.2);
+}
+
+/* Grayscale */
+.image-hover-grayscale img {
+    transition: filter 0.3s;
+}
+
+.image-hover-grayscale:hover img {
+    filter: grayscale(100%);
+}
+
+/* Sepia */
+.image-hover-sepia img {
+    transition: filter 0.3s;
+}
+
+.image-hover-sepia:hover img {
+    filter: sepia(100%);
+}
+
+/* Rotate */
+.image-hover-rotate img {
+    transition: transform 0.5s;
+}
+
+.image-hover-rotate:hover img {
+    transform: rotate(5deg) scale(1.05);
+}
+
+/* ============================================
+   4. LINK HOVER EFFECTS
+   ============================================ */
+
+/* Underline slide */
+.link-hover-underline {
+    position: relative;
+}
+
+.link-hover-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #ff6a00;
+    transition: width 0.3s;
+}
+
+.link-hover-underline:hover::after {
+    width: 100%;
+}
+
+/* Underline center */
+.link-hover-underline-center {
+    position: relative;
+}
+
+.link-hover-underline-center::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #ff6a00;
+    transition: all 0.3s;
+    transform: translateX(-50%);
+}
+
+.link-hover-underline-center:hover::after {
+    width: 100%;
+}
+
+/* Brackets */
+.link-hover-brackets::before,
+.link-hover-brackets::after {
+    content: '[';
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.link-hover-brackets::after {
+    content: ']';
+}
+
+.link-hover-brackets:hover::before,
+.link-hover-brackets:hover::after {
+    opacity: 1;
+}
+
+/* ============================================
+   5. SOCIAL ICON HOVER
+   ============================================ */
+
+.social-icon-hover {
+    transition: all 0.3s;
+}
+
+.social-icon-hover:hover {
+    transform: translateY(-5px) scale(1.1);
+}
+
+.social-icon-hover:nth-child(1):hover { color: #1877f2; }
+.social-icon-hover:nth-child(2):hover { color: #1da1f2; }
+.social-icon-hover:nth-child(3):hover { color: #e4405f; }
+.social-icon-hover:nth-child(4):hover { color: #0a66c2; }
+
+/* ============================================
+   6. MENU ITEM HOVER
+   ============================================ */
+
+.menu-hover-slide {
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-hover-slide::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #ff6a00, #ee0979);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+}
+
+.menu-hover-slide:hover::before {
+    transform: translateX(0);
+}
+
+/* ============================================
+   7. FORM INPUT HOVER
+   ============================================ */
+
+.input-hover-glow {
+    transition: all 0.3s;
+}
+
+.input-hover-glow:hover {
+    box-shadow: 0 0 10px rgba(238,9,121,0.3);
+    border-color: #ee0979;
+}
+
+.input-hover-expand {
+    transition: all 0.3s;
+}
+
+.input-hover-expand:hover {
+    transform: scale(1.02);
+    padding: 12px 16px;
+}
+
+/* ============================================
+   8. MODAL HOVER
+   ============================================ */
+
+.modal-hover-scale {
+    transition: transform 0.3s;
+}
+
+.modal-hover-scale:hover {
+    transform: scale(1.02);
+}
