@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Sayt haqida | AniComplex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background: rgba(10, 10, 20, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover { color: #ff6a00; }
+        
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(15,15,30,0.5);
+            border-radius: 30px;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-desc {
+            max-width: 700px;
+            margin: 0 auto;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+        
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-box {
+            background: rgba(15,15,30,0.5);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: 0.3s;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-5px);
+            background: rgba(238,9,121,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff6a00;
+        }
+        
+        .stat-label {
+            margin-top: 0.5rem;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        /* Sections */
+        .info-section {
+            background: rgba(15,15,30,0.5);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-title i {
+            color: #ff6a00;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .feature-text h4 {
+            margin-bottom: 0.3rem;
+        }
+        
+        .feature-text p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        /* Timeline */
+        .timeline {
+            margin-top: 1rem;
+        }
+        
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-left: 2px solid #ff6a00;
+            margin-left: 1rem;
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 1.2rem;
+            width: 14px;
+            height: 14px;
+            background: #ff6a00;
+            border-radius: 50%;
+        }
+        
+        .timeline-year {
+            font-weight: bold;
+            color: #ff6a00;
+            min-width: 70px;
+        }
+        
+        /* Team */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .team-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+        }
+        
+        .team-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        
+        .team-role {
+            font-size: 0.8rem;
+            color: #ff6a00;
+        }
+        
+        /* Version */
+        .version-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .about-container { padding: 1rem; }
+            .hero-section { padding: 2rem; }
+            .hero-title { font-size: 1.5rem; }
+            .timeline-item { flex-direction: column; gap: 0.5rem; }
+            .timeline-item::before { top: 0.8rem; }
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.9);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border-left: 4px solid #4caf50;
+            animation: slideIn 0.3s, fadeOut 0.3s 2.7s forwards;
+            z-index: 1000;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo"><i class="fas fa-dragon"></i> AniComplex</div>
+    <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Bosh sahifa</a>
+        <a href="anime-list.html"><i class="fas fa-list"></i> Animelar</a>
+        <a href="profile.html"><i class="fas fa-user"></i> Profil</a>
+        <a href="about.html"><i class="fas fa-info-circle"></i> Sayt haqida</a>
+    </div>
+</nav>
+
+<div class="about-container">
+    <div class="page-header">
+        <h1><i class="fas fa-info-circle"></i> Sayt haqida</h1>
+        <p>AniComplex haqida to'liq ma'lumot</p>
+    </div>
+    
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-icon">
+            <i class="fas fa-dragon"></i>
+        </div>
+        <h2 class="hero-title">AniComplex</h2>
+        <p class="hero-desc">
+            AniComplex - O'zbekistondagi eng zamonaviy anime portal. 
+            1000+ anime, interaktiv quiz, real-time chat, admin panel va 
+            boshqa ko'plab funksiyalar sizni kutmoqda.
+        </p>
+    </div>
+    
+    <!-- Statistics -->
+    <div class="stats-grid" id="statsGrid">
+        <div class="stat-box">
+            <div class="stat-number" id="statAnime">0</div>
+            <div class="stat-label">Anime</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" id="statEpisodes">0</div>
+            <div class="stat-label">Qismlar</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" id="statUsers">0</div>
+            <div class="stat-label">Foydalanuvchilar</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" id="statQuiz">0</div>
+            <div class="stat-label">Quiz savollari</div>
+        </div>
+    </div>
+    
+    <!-- Features -->
+    <div class="info-section">
+        <h3 class="section-title"><i class="fas fa-star"></i> Asosiy xususiyatlar</h3>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-tv"></i></div>
+                <div class="feature-text">
+                    <h4>1000+ Anime</h4>
+                    <p>Eng yangi va klassik animelar to'plami</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-question-circle"></i></div>
+                <div class="feature-text">
+                    <h4>1000+ Quiz</h4>
+                    <p>Anime bilimingizni sinab ko'ring</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-comments"></i></div>
+                <div class="feature-text">
+                    <h4>Real-time Chat</h4>
+                    <p>Anime muxlislari bilan muloqot</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-download"></i></div>
+                <div class="feature-text">
+                    <h4>PVA / APK</h4>
+                    <p>Ilovani yuklab oling va offline tomosha qiling</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-user-cog"></i></div>
+                <div class="feature-text">
+                    <h4>Admin panel</h4>
+                    <p>Saytni to'liq boshqarish tizimi</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                <div class="feature-text">
+                    <h4>Responsive dizayn</h4>
+                    <p>Telefon, planshet va kompyuter uchun moslashtirilgan</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Timeline -->
+    <div class="info-section">
+        <h3 class="section-title"><i class="fas fa-history"></i> Tarix</h3>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">2024</div>
+                <div class="timeline-text">AniComplex loyihasi ishga tushirildi</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2025</div>
+                <div class="timeline-text">1000+ anime qo'shildi, Quiz tizimi integratsiya qilindi</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Team -->
+    <div class="info-section">
+        <h3 class="section-title"><i class="fas fa-users"></i> Jamoa</h3>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar"><i class="fas fa-user"></i></div>
+                <div class="team-name">AniComplex Team</div>
+                <div class="team-role">Asoschi va dasturchi</div>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar"><i class="fas fa-paint-bucket"></i></div>
+                <div class="team-name">UI/UX Team</div>
+                <div class="team-role">Dizayn va interfeys</div>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar"><i class="fas fa-headset"></i></div>
+                <div class="team-name">Support Team</div>
+                <div class="team-role">Qo'llab-quvvatlash</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Version -->
+    <div class="info-section">
+        <h3 class="section-title"><i class="fas fa-code-branch"></i> Versiya</h3>
+        <div class="version-box">
+            <p><strong>Joriy versiya:</strong> 3.0.0</p>
+            <p><strong>So'ngi yangilanish:</strong> 15.12.2024</p>
+            <p><strong>Til:</strong> O'zbek, English, Русский</p>
+        </div>
+    </div>
+    
+    <!-- Tech Stack -->
+    <div class="info-section">
+        <h3 class="section-title"><i class="fas fa-microchip"></i> Texnologiyalar</h3>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fab fa-html5"></i></div>
+                <div class="feature-text">
+                    <h4>HTML5 / CSS3</h4>
+                    <p>Zamonaviy web texnologiyalar</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fab fa-js"></i></div>
+                <div class="feature-text">
+                    <h4>JavaScript (ES6+)</h4>
+                    <p>Dinamik interfeyslar</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-database"></i></div>
+                <div class="feature-text">
+                    <h4>LocalStorage / IndexedDB</h4>
+                    <p>Ma'lumotlarni saqlash</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <div class="feature-text">
+                    <h4>PWA / Service Worker</h4>
+                    <p>Offline rejim va push xabarlar</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Load statistics
+    function loadStats() {
+        const animeList = JSON.parse(localStorage.getItem('animeList') || '[]');
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const quiz = JSON.parse(localStorage.getItem('admin_quiz') || '[]');
+        
+        let totalEpisodes = 0;
+        animeList.forEach(anime => {
+            totalEpisodes += anime.episodes || 0;
+        });
+        
+        document.getElementById('statAnime').innerText = animeList.length;
+        document.getElementById('statEpisodes').innerText = totalEpisodes;
+        document.getElementById('statUsers').innerText = users.length || 145;
+        document.getElementById('statQuiz').innerText = quiz.length || 852;
+    }
+    
+    loadStats();
+    
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.style.borderLeftColor = type === 'success' ? '#4caf50' : '#ff6a00';
+        toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i> ${message}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+</script>
+
+</body>
+</html>
