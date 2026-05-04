@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Mening profilim | AniComplex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        /* Navbar */
+        .navbar {
+            background: rgba(10, 10, 20, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover { color: #ff6a00; }
+        
+        /* Profile Container */
+        .profile-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        /* Profile Header */
+        .profile-header {
+            background: rgba(15, 15, 30, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .profile-avatar {
+            position: relative;
+        }
+        
+        .avatar-img {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .edit-avatar {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #ff6a00;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .edit-avatar:hover {
+            transform: scale(1.1);
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-name {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-username {
+            color: #ff6a00;
+            margin-bottom: 1rem;
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        /* Tabs */
+        .profile-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.5rem;
+        }
+        
+        .tab-btn {
+            padding: 10px 24px;
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.6);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 30px;
+        }
+        
+        .tab-btn.active {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            color: #fff;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Info Cards */
+        .info-card {
+            background: rgba(15, 15, 30, 0.5);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .info-row {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .info-label {
+            width: 150px;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .info-value {
+            flex: 1;
+        }
+        
+        .edit-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 6px 16px;
+            border-radius: 20px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .edit-btn:hover {
+            background: #ff6a00;
+        }
+        
+        /* Anime Grid */
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .anime-card {
+            background: rgba(20,20,40,0.7);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        
+        .anime-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(238,9,121,0.2);
+        }
+        
+        .anime-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+        
+        .anime-card-info {
+            padding: 0.8rem;
+        }
+        
+        .anime-card-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        
+        .remove-fav {
+            background: rgba(244,67,54,0.8);
+            border: none;
+            padding: 4px 8px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.7rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            width: 100%;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(15,15,30,0.5);
+            border-radius: 20px;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: rgba(255,255,255,0.3);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: rgba(20,20,40,0.95);
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 450px;
+            width: 90%;
+            border: 1px solid rgba(238,9,121,0.3);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-close {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            color: #fff;
+        }
+        
+        .btn-save {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            border: none;
+            padding: 12px;
+            border-radius: 30px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-container { padding: 1rem; }
+            .profile-header { flex-direction: column; text-align: center; }
+            .profile-stats { justify-content: center; }
+            .info-row { flex-direction: column; gap: 5px; }
+            .info-label { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo"><i class="fas fa-dragon"></i> AniComplex</div>
+    <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Bosh sahifa</a>
+        <a href="anime-list.html"><i class="fas fa-list"></i> Animelar</a>
+        <a href="quiz.html"><i class="fas fa-question-circle"></i> Quiz</a>
+        <a href="profile.html"><i class="fas fa-user"></i> Profil</a>
+    </div>
+</nav>
+
+<div class="profile-container">
+    <!-- Profile Header -->
+    <div class="profile-header" id="profileHeader">
+        <div class="profile-avatar">
+            <div class="avatar-img" id="avatarImg">A</div>
+            <div class="edit-avatar" onclick="openAvatarModal()">
+                <i class="fas fa-camera"></i>
+            </div>
+        </div>
+        <div class="profile-info">
+            <h1 class="profile-name" id="profileName">Loading...</h1>
+            <div class="profile-username" id="profileUsername">@username</div>
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="favCount">0</div>
+                    <div class="stat-label">Sevimlilar</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="historyCount">0</div>
+                    <div class="stat-label">Tomosha tarixi</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="quizScore">0</div>
+                    <div class="stat-label">Quiz ball</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="memberDays">0</div>
+                    <div class="stat-label">A'zo kun</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="profile-tabs">
+        <button class="tab-btn active" data-tab="info">Shaxsiy ma'lumotlar</button>
+        <button class="tab-btn" data-tab="favorites">Sevimlilar</button>
+        <button class="tab-btn" data-tab="history">Tomosha tarixi</button>
+        <button class="tab-btn" data-tab="settings">Sozlamalar</button>
+    </div>
+    
+    <!-- Tab 1: Personal Info -->
+    <div class="tab-content active" id="tab-info">
+        <div class="info-card">
+            <div class="info-row">
+                <div class="info-label">To'liq ism</div>
+                <div class="info-value" id="displayFullname">-</div>
+                <button class="edit-btn" onclick="openEditModal('fullname')">Tahrirlash</button>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Username</div>
+                <div class="info-value" id="displayUsername">-</div>
+                <button class="edit-btn" onclick="openEditModal('username')">Tahrirlash</button>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Email</div>
+                <div class="info-value" id="displayEmail">-</div>
+                <button class="edit-btn" onclick="openEditModal('email')">Tahrirlash</button>
+            </div>
+            <div class="info-row">
+                <div class="info-label">A'zo bo'lgan sana</div>
+                <div class="info-value" id="joinDate">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">So'nggi kirish</div>
+                <div class="info-value" id="lastLogin">-</div>
+            </div>
+        </div>
+        
+        <div class="info-card">
+            <h3 style="margin-bottom: 1rem;"><i class="fas fa-chart-line"></i> Statistika</h3>
+            <div class="info-row">
+                <div class="info-label">Jami tomosha qilingan</div>
+                <div class="info-value" id="totalWatched">0 qism</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Quizda qatnashish</div>
+                <div class="info-value" id="quizAttempts">0 marta</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Chat xabarlari</div>
+                <div class="info-value" id="chatMessages">0 ta</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tab 2: Favorites -->
+    <div class="tab-content" id="tab-favorites">
+        <div class="anime-grid" id="favoritesGrid"></div>
+    </div>
+    
+    <!-- Tab 3: History -->
+    <div class="tab-content" id="tab-history">
+        <div class="anime-grid" id="historyGrid"></div>
+    </div>
+    
+    <!-- Tab 4: Settings -->
+    <div class="tab-content" id="tab-settings">
+        <div class="info-card">
+            <h3><i class="fas fa-palette"></i> Ko'rinish</h3>
+            <div class="info-row">
+                <div class="info-label">Dark mode</div>
+                <div class="info-value">
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Til</div>
+                <div class="info-value">
+                    <select id="languageSelect" class="form-control" style="width: auto;">
+                        <option value="uz">O'zbekcha</option>
+                        <option value="en">English</option>
+                        <option value="ru">Русский</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-card">
+            <h3><i class="fas fa-bell"></i> Bildirishnomalar</h3>
+            <div class="info-row">
+                <div class="info-label">Yangi qismlar</div>
+                <div class="info-value">
+                    <label class="switch">
+                        <input type="checkbox" id="notifyEpisodes" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Chat xabarlari</div>
+                <div class="info-value">
+                    <label class="switch">
+                        <input type="checkbox" id="notifyChat" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Ovoz effektlari</div>
+                <div class="info-value">
+                    <label class="switch">
+                        <input type="checkbox" id="soundEffects" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-card">
+            <h3><i class="fas fa-shield-alt"></i> Xavfsizlik</h3>
+            <button class="edit-btn" onclick="changePassword()" style="margin-right: 1rem;">Parolni o'zgartirish</button>
+            <button class="edit-btn" onclick="logout()" style="background: #f44336;">Chiqish</button>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal" id="editModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">Tahrirlash</h3>
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+        </div>
+        <form id="editForm">
+            <div class="form-group">
+                <label id="modalLabel">Yangi qiymat</label>
+                <input type="text" id="editValue" class="form-control" required>
+            </div>
+            <button type="submit" class="btn-save">Saqlash</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Toggle Switch */
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+    }
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.3s;
+        border-radius: 24px;
+    }
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.3s;
+        border-radius: 50%;
+    }
+    input:checked + .slider {
+        background: linear-gradient(135deg, #ff6a00, #ee0979);
+    }
+    input:checked + .slider:before {
+        transform: translateX(26px);
+    }
+</style>
+
+<script>
+    let currentUser = null;
+    let editField = '';
+    let favorites = [];
+    let history = [];
+    
+    // Load user data
+    function loadUserData() {
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const currentUsername = localStorage.getItem('username');
+        
+        currentUser = users.find(u => u.username === currentUsername);
+        
+        if (!currentUser) {
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        // Update UI
+        document.getElementById('profileName').textContent = currentUser.fullname || currentUser.username;
+        document.getElementById('profileUsername').textContent = '@' + currentUser.username;
+        document.getElementById('displayFullname').textContent = currentUser.fullname || '-';
+        document.getElementById('displayUsername').textContent = currentUser.username;
+        document.getElementById('displayEmail').textContent = currentUser.email;
+        document.getElementById('avatarImg').textContent = (currentUser.fullname || currentUser.username).charAt(0).toUpperCase();
+        
+        const joinDate = new Date(currentUser.joinDate);
+        document.getElementById('joinDate').textContent = joinDate.toLocaleDateString('uz-UZ');
+        document.getElementById('memberDays').textContent = Math.floor((Date.now() - new Date(currentUser.joinDate)) / (1000 * 60 * 60 * 24));
+        
+        // Load favorites and history
+        favorites = JSON.parse(localStorage.getItem(`favorites_${currentUser.id}`) || '[]');
+        history = JSON.parse(localStorage.getItem(`history_${currentUser.id}`) || '[]');
+        
+        document.getElementById('favCount').textContent = favorites.length;
+        document.getElementById('historyCount').textContent = history.length;
+        
+        // Load anime data
+        loadFavoritesGrid();
+        loadHistoryGrid();
+        
+        // Load settings
+        const settings = JSON.parse(localStorage.getItem(`settings_${currentUser.id}`) || '{}');
+        document.getElementById('darkModeToggle').checked = settings.darkMode || false;
+        document.getElementById('languageSelect').value = settings.language || 'uz';
+        document.getElementById('notifyEpisodes').checked = settings.notifyEpisodes !== false;
+        document.getElementById('notifyChat').checked = settings.notifyChat !== false;
+        document.getElementById('soundEffects').checked = settings.soundEffects !== false;
+    }
+    
+    // Load favorites grid
+    function loadFavoritesGrid() {
+        const allAnime = JSON.parse(localStorage.getItem('animeList') || '[]');
+        const favAnime = allAnime.filter(a => favorites.includes(a.id));
+        const grid = document.getElementById('favoritesGrid');
+        
+        if (favAnime.length === 0) {
+            grid.innerHTML = `<div class="empty-state"><i class="fas fa-heart"></i><h3>Sevimli animelar yo'q</h3><p>Animelarni sevimlilarga qo'shing</p></div>`;
+            return;
+        }
+        
+        grid.innerHTML = favAnime.map(anime => `
+            <div class="anime-card" onclick="location.href='anime-detail.html?id=${anime.id}'">
+                <img src="${anime.image}" onerror="this.src='https://via.placeholder.com/200x160?text=Anime'">
+                <div class="anime-card-info">
+                    <div class="anime-card-title">${anime.name}</div>
+                    <button class="remove-fav" onclick="event.stopPropagation(); removeFavorite(${anime.id})"><i class="fas fa-trash"></i> O'chirish</button>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // Load history grid
+    function loadHistoryGrid() {
+        const allAnime = JSON.parse(localStorage.getItem('animeList') || '[]');
+        const historyAnime = allAnime.filter(a => history.some(h => h.id === a.id));
+        const grid = document.getElementById('historyGrid');
+        
+        if (historyAnime.length === 0) {
+            grid.innerHTML = `<div class="empty-state"><i class="fas fa-history"></i><h3>Tomosha tarixi bo'sh</h3><p>Animelarni tomosha qiling</p></div>`;
+            return;
+        }
+        
+        grid.innerHTML = historyAnime.map(anime => {
+            const watchData = history.find(h => h.id === anime.id);
+            return `
+                <div class="anime-card" onclick="location.href='watch.html?id=${anime.id}&ep=${watchData?.episode || 1}'">
+                    <img src="${anime.image}" onerror="this.src='https://via.placeholder.com/200x160?text=Anime'">
+                    <div class="anime-card-info">
+                        <div class="anime-card-title">${anime.name}</div>
+                        <div style="font-size: 0.7rem; color: #ff6a00;">${watchData?.episode || 1}-qism</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    
+    // Remove favorite
+    function removeFavorite(animeId) {
+        favorites = favorites.filter(id => id !== animeId);
+        localStorage.setItem(`favorites_${currentUser.id}`, JSON.stringify(favorites));
+        document.getElementById('favCount').textContent = favorites.length;
+        loadFavoritesGrid();
+    }
+    
+    // Edit modal
+    function openEditModal(field) {
+        editField = field;
+        const titles = { fullname: 'To\'liq ism', username: 'Username', email: 'Email' };
+        document.getElementById('modalTitle').textContent = titles[field] + 'ni tahrirlash';
+        document.getElementById('modalLabel').textContent = 'Yangi ' + titles[field];
+        document.getElementById('editValue').value = currentUser[field] || '';
+        document.getElementById('editModal').classList.add('active');
+    }
+    
+    function closeModal() {
+        document.getElementById('editModal').classList.remove('active');
+    }
+    
+    document.getElementById('editForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newValue = document.getElementById('editValue').value.trim();
+        
+        if (!newValue) return;
+        
+        // Validation
+        if (editField === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newValue)) {
+            alert('Noto\'g\'ri email formati!');
+            return;
+        }
+        
+        if (editField === 'username' && !/^[a-zA-Z0-9_]{3,20}$/.test(newValue)) {
+            alert('Username 3-20 belgi oralig\'ida bo\'lishi kerak!');
+            return;
+        }
+        
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const userIndex = users.findIndex(u => u.id === currentUser.id);
+        
+        if (editField === 'username') {
+            if (users.some(u => u.username === newValue && u.id !== currentUser.id)) {
+                alert('Bu username allaqachon olingan!');
+                return;
+            }
+            localStorage.setItem('username', newValue);
+        }
+        
+        if (editField === 'email') {
+            if (users.some(u => u.email === newValue && u.id !== currentUser.id)) {
+                alert('Bu email allaqachon ro\'yxatdan o\'tgan!');
+                return;
+            }
+        }
+        
+        currentUser[editField] = newValue;
+        users[userIndex] = currentUser;
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        closeModal();
+        loadUserData();
+        alert('Ma\'lumotlar yangilandi!');
+    });
+    
+    // Change password
+    function changePassword() {
+        const newPass = prompt('Yangi parolni kiriting (kamida 6 belgi):');
+        if (newPass && newPass.length >= 6) {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            currentUser.password = newPass;
+            users[userIndex] = currentUser;
+            localStorage.setItem('users', JSON.stringify(users));
+            alert('Parol muvaffaqiyatli o\'zgartirildi!');
+        } else if (newPass) {
+            alert('Parol kamida 6 belgidan iborat bo\'lishi kerak!');
+        }
+    }
+    
+    // Save settings
+    function saveSettings() {
+        const settings = {
+            darkMode: document.getElementById('darkModeToggle').checked,
+            language: document.getElementById('languageSelect').value,
+            notifyEpisodes: document.getElementById('notifyEpisodes').checked,
+            notifyChat: document.getElementById('notifyChat').checked,
+            soundEffects: document.getElementById('soundEffects').checked
+        };
+        localStorage.setItem(`settings_${currentUser.id}`, JSON.stringify(settings));
+        
+        if (settings.darkMode) {
+            document.body.style.background = 'linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%)';
+        }
+    }
+    
+    document.getElementById('darkModeToggle').addEventListener('change', saveSettings);
+    document.getElementById('languageSelect').addEventListener('change', saveSettings);
+    document.getElementById('notifyEpisodes').addEventListener('change', saveSettings);
+    document.getElementById('notifyChat').addEventListener('change', saveSettings);
+    document.getElementById('soundEffects').addEventListener('change', saveSettings);
+    
+    // Logout
+    function logout() {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('username');
+        window.location.href = 'login.html';
+    }
+    
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+        });
+    });
+    
+    function openAvatarModal() {
+        alert('Avatar o\'zgartirish tez orada qo\'shiladi!');
+    }
+    
+    // Check login
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+        window.location.href = 'login.html';
+    } else {
+        loadUserData();
+    }
+</script>
+
+</body>
+</html>
