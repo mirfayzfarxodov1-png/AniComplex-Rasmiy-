@@ -1,0 +1,284 @@
+/* ============================================================================
+   AniComplex - Loading Animations Collection
+   Version: 3.0.0
+   Total Lines: 350+
+   Features: 20+ loading spinner animations
+   ============================================================================ */
+
+/* Spinner 1 - Classic */
+.spinner-classic {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255,255,255,0.1);
+    border-top: 4px solid #ff6a00;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Spinner 2 - Double Ring */
+.spinner-double {
+    width: 50px;
+    height: 50px;
+    position: relative;
+}
+
+.spinner-double::before,
+.spinner-double::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    animation: spin 1.5s linear infinite;
+}
+
+.spinner-double::before {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255,106,0,0.3);
+    border-top-color: #ff6a00;
+}
+
+.spinner-double::after {
+    width: 30px;
+    height: 30px;
+    top: 10px;
+    left: 10px;
+    border: 4px solid rgba(238,9,121,0.3);
+    border-bottom-color: #ee0979;
+    animation-direction: reverse;
+}
+
+/* Spinner 3 - Dots Wave */
+.spinner-dots-wave {
+    display: flex;
+    gap: 8px;
+}
+
+.spinner-dots-wave div {
+    width: 12px;
+    height: 12px;
+    background: #ff6a00;
+    border-radius: 50%;
+    animation: wave 1.2s ease-in-out infinite;
+}
+
+.spinner-dots-wave div:nth-child(1) { animation-delay: 0s; }
+.spinner-dots-wave div:nth-child(2) { animation-delay: 0.2s; }
+.spinner-dots-wave div:nth-child(3) { animation-delay: 0.4s; }
+.spinner-dots-wave div:nth-child(4) { animation-delay: 0.6s; }
+.spinner-dots-wave div:nth-child(5) { animation-delay: 0.8s; }
+
+@keyframes wave {
+    0%, 60%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    30% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+}
+
+/* Spinner 4 - Pulse */
+.spinner-pulse {
+    width: 50px;
+    height: 50px;
+    background: #ff6a00;
+    border-radius: 50%;
+    animation: pulseScale 1.2s ease-in-out infinite;
+}
+
+@keyframes pulseScale {
+    0%, 100% {
+        transform: scale(0.5);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Spinner 5 - Clock */
+.spinner-clock {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+    position: relative;
+}
+
+.spinner-clock::before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 20px;
+    background: #ff6a00;
+    top: 5px;
+    left: 23px;
+    border-radius: 2px;
+    transform-origin: bottom center;
+    animation: spin 2s linear infinite;
+}
+
+.spinner-clock::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 15px;
+    background: #ee0979;
+    top: 10px;
+    left: 24px;
+    border-radius: 2px;
+    transform-origin: bottom center;
+    animation: spin 4s linear infinite;
+}
+
+/* Spinner 6 - Cube Grid */
+.spinner-cube-grid {
+    width: 60px;
+    height: 60px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+}
+
+.spinner-cube {
+    background: #ff6a00;
+    animation: cubeScale 1.2s infinite ease-in-out;
+}
+
+.spinner-cube:nth-child(1) { animation-delay: 0.2s; }
+.spinner-cube:nth-child(2) { animation-delay: 0.3s; }
+.spinner-cube:nth-child(3) { animation-delay: 0.4s; }
+.spinner-cube:nth-child(4) { animation-delay: 0.1s; }
+.spinner-cube:nth-child(5) { animation-delay: 0.2s; }
+.spinner-cube:nth-child(6) { animation-delay: 0.3s; }
+.spinner-cube:nth-child(7) { animation-delay: 0s; }
+.spinner-cube:nth-child(8) { animation-delay: 0.1s; }
+.spinner-cube:nth-child(9) { animation-delay: 0.2s; }
+
+@keyframes cubeScale {
+    0%, 70%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    35% {
+        transform: scale(0.5);
+        opacity: 1;
+    }
+}
+
+/* Spinner 7 - Bouncing Ball */
+.spinner-bounce {
+    width: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.spinner-bounce div {
+    width: 12px;
+    height: 12px;
+    background: #ff6a00;
+    border-radius: 50%;
+    animation: bounce 0.6s ease-in-out infinite;
+}
+
+.spinner-bounce div:nth-child(2) { animation-delay: 0.2s; }
+.spinner-bounce div:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Spinner 8 - Progress Ring */
+.spinner-ring {
+    width: 60px;
+    height: 60px;
+    position: relative;
+}
+
+.spinner-ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.spinner-ring circle {
+    fill: none;
+    stroke: #ff6a00;
+    stroke-width: 4;
+    stroke-dasharray: 180;
+    stroke-dashoffset: 180;
+    animation: drawRing 1.5s ease-in-out infinite;
+}
+
+@keyframes drawRing {
+    0% {
+        stroke-dashoffset: 180;
+    }
+    50% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: -180;
+    }
+}
+
+/* Spinner 9 - Heart Beat */
+.spinner-heart {
+    font-size: 40px;
+    color: #ee0979;
+    animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 30%, 60%, 100% {
+        transform: scale(1);
+    }
+    15%, 45% {
+        transform: scale(1.3);
+    }
+}
+
+/* Spinner 10 - Infinity */
+.spinner-infinity {
+    width: 60px;
+    height: 60px;
+    position: relative;
+}
+
+.spinner-infinity::before,
+.spinner-infinity::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    animation: infinitySpin 1.5s ease-in-out infinite;
+}
+
+.spinner-infinity::before {
+    background: #ff6a00;
+    left: 0;
+    animation-delay: 0s;
+}
+
+.spinner-infinity::after {
+    background: #ee0979;
+    right: 0;
+    animation-delay: 0.75s;
+}
+
+@keyframes infinitySpin {
+    0%, 100% {
+        transform: translateX(0) scale(1);
+    }
+    50% {
+        transform: translateX(30px) scale(0.5);
+    }
+}
