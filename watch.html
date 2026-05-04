@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Tomosha qilish | AniComplex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        /* Navbar */
+        .navbar {
+            background: rgba(10, 10, 20, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover { color: #ff6a00; }
+        
+        /* Watch Container */
+        .watch-container {
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 60px);
+        }
+        
+        /* Video Player */
+        .video-section {
+            background: #000;
+            position: relative;
+        }
+        
+        .video-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .video-player {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .video-player iframe,
+        .video-player video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Video Info */
+        .video-info {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+        
+        .anime-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .episode-title {
+            color: #ff6a00;
+            margin-bottom: 1rem;
+        }
+        
+        /* Episode Navigation */
+        .episode-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .nav-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .episode-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .episode-select {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 30px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        /* Comments Section */
+        .comments-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+            background: rgba(15,15,30,0.3);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+        
+        .comments-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .comment-input {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .comment-input input {
+            flex: 1;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 30px;
+            color: #fff;
+        }
+        
+        .comment-input button {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            border: none;
+            padding: 0 24px;
+            border-radius: 30px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        .comment-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .comment-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            gap: 12px;
+        }
+        
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .comment-content {
+            flex: 1;
+        }
+        
+        .comment-user {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .comment-time {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+            margin-left: 8px;
+        }
+        
+        .comment-text {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        /* Recommendations */
+        .recommendations {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .recommendations h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .recommend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+        
+        .rec-card {
+            background: rgba(20,20,40,0.7);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .rec-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .rec-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .rec-card-info {
+            padding: 0.8rem;
+        }
+        
+        .rec-card-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .navbar { padding: 0.8rem 1rem; }
+            .nav-buttons { order: 1; width: 100%; justify-content: center; }
+            .episode-selector { order: 2; width: 100%; justify-content: center; }
+            .comment-item { gap: 8px; }
+            .comment-avatar { width: 35px; height: 35px; font-size: 0.8rem; }
+        }
+        
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.9);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border-left: 4px solid #4caf50;
+            animation: slideIn 0.3s, fadeOut 0.3s 2.7s forwards;
+            z-index: 1000;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(238,9,121,0.3);
+            border-top-color: #ee0979;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo"><i class="fas fa-dragon"></i> AniComplex</div>
+    <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Bosh sahifa</a>
+        <a href="anime-list.html"><i class="fas fa-list"></i> Animelar</a>
+        <a href="profile.html"><i class="fas fa-user"></i> Profil</a>
+    </div>
+</nav>
+
+<div class="watch-container">
+    <div id="content">
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>Yuklanmoqda...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const animeId = parseInt(urlParams.get('id'));
+    let episodeNum = parseInt(urlParams.get('ep')) || 1;
+    
+    let currentAnime = null;
+    let totalEpisodes = 0;
+    let currentUser = null;
+    let comments = [];
+    
+    // Load data
+    async function loadData() {
+        const allAnime = JSON.parse(localStorage.getItem('animeList') || '[]');
+        currentAnime = allAnime.find(a => a.id === animeId);
+        
+        if (!currentAnime) {
+            document.getElementById('content').innerHTML = `
+                <div style="text-align: center; padding: 3rem;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #ff6a00;"></i>
+                    <h2>Anime topilmadi!</h2>
+                    <a href="anime-list.html" class="nav-btn" style="margin-top: 1rem;">Animelar ro'yxatiga qaytish</a>
+                </div>
+            `;
+            return;
+        }
+        
+        totalEpisodes = currentAnime.episodes || 24;
+        
+        // Load user
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const username = localStorage.getItem('username');
+        currentUser = users.find(u => u.username === username);
+        
+        // Load comments
+        loadComments();
+        
+        renderWatchPage();
+    }
+    
+    function loadComments() {
+        const saved = localStorage.getItem(`comments_${animeId}_${episodeNum}`);
+        comments = saved ? JSON.parse(saved) : [];
+    }
+    
+    function saveComments() {
+        localStorage.setItem(`comments_${animeId}_${episodeNum}`, JSON.stringify(comments));
+    }
+    
+    function renderWatchPage() {
+        const videoUrl = getVideoUrl(episodeNum);
+        
+        const html = `
+            <div class="video-section">
+                <div class="video-wrapper">
+                    <div class="video-player">
+                        ${getVideoEmbed(videoUrl)}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="video-info">
+                <h1 class="anime-title">${currentAnime.name}</h1>
+                <div class="episode-title">${episodeNum}-qism</div>
+                
+                <div class="episode-nav">
+                    <div class="nav-buttons">
+                        <button class="nav-btn" id="prevBtn" ${episodeNum <= 1 ? 'disabled' : ''}>
+                            <i class="fas fa-chevron-left"></i> Oldingi
+                        </button>
+                        <button class="nav-btn" id="nextBtn" ${episodeNum >= totalEpisodes ? 'disabled' : ''}>
+                            Keyingi <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="episode-selector">
+                        <span>Qism:</span>
+                        <select id="episodeSelect" class="episode-select">
+                            ${Array.from({length: totalEpisodes}, (_, i) => `
+                                <option value="${i+1}" ${i+1 === episodeNum ? 'selected' : ''}>
+                                    ${i+1}-qism
+                                </option>
+                            `).join('')}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comments-section">
+                <div class="comments-header">
+                    <h3><i class="fas fa-comments"></i> Izohlar (${comments.length})</h3>
+                </div>
+                
+                ${currentUser ? `
+                    <div class="comment-input">
+                        <input type="text" id="commentInput" placeholder="Izoh qoldiring...">
+                        <button id="submitComment"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                ` : `
+                    <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                        <p>Izoh qoldirish uchun <a href="login.html" style="color: #ff6a00;">kiring</a></p>
+                    </div>
+                `}
+                
+                <div class="comment-list" id="commentList">
+                    ${renderComments()}
+                </div>
+            </div>
+            
+            <div class="recommendations">
+                <h3><i class="fas fa-star"></i> Sizga ham yoqishi mumkin</h3>
+                <div class="recommend-grid" id="recommendGrid">
+                    <div class="loading" style="padding: 1rem;">Yuklanmoqda...</div>
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('content').innerHTML = html;
+        
+        // Bind events
+        document.getElementById('prevBtn')?.addEventListener('click', () => changeEpisode(episodeNum - 1));
+        document.getElementById('nextBtn')?.addEventListener('click', () => changeEpisode(episodeNum + 1));
+        document.getElementById('episodeSelect')?.addEventListener('change', (e) => changeEpisode(parseInt(e.target.value)));
+        document.getElementById('submitComment')?.addEventListener('click', addComment);
+        document.getElementById('commentInput')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addComment();
+        });
+        
+        loadRecommendations();
+        
+        // Save watch progress
+        saveWatchProgress();
+    }
+    
+    function getVideoUrl(episode) {
+        // Demo video URLs (in production, use real video sources)
+        const demoVideos = [
+            'https://www.youtube.com/embed/dQw4w9WgXcQ',
+            'https://www.youtube.com/embed/3JZ_D3ELwOQ',
+            'https://www.youtube.com/embed/LXb3EKWsInQ'
+        ];
+        return demoVideos[(episode - 1) % demoVideos.length];
+    }
+    
+    function getVideoEmbed(url) {
+        if (url.includes('youtube.com') || url.includes('youtu.be')) {
+            let embedUrl = url;
+            if (url.includes('youtube.com/watch?v=')) {
+                const videoId = url.split('v=')[1].split('&')[0];
+                embedUrl = `https://www.youtube.com/embed/${videoId}`;
+            } else if (url.includes('youtu.be/')) {
+                const videoId = url.split('youtu.be/')[1].split('?')[0];
+                embedUrl = `https://www.youtube.com/embed/${videoId}`;
+            }
+            return `<iframe src="${embedUrl}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        }
+        return `<video controls autoplay><source src="${url}" type="video/mp4">Brauzeringiz video ni qo'llab-quvvatlamaydi</video>`;
+    }
+    
+    function changeEpisode(newEpisode) {
+        if (newEpisode >= 1 && newEpisode <= totalEpisodes) {
+            episodeNum = newEpisode;
+            loadComments();
+            renderWatchPage();
+        }
+    }
+    
+    function addComment() {
+        if (!currentUser) {
+            alert('Iltimos, avval kiring!');
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        const input = document.getElementById('commentInput');
+        const text = input.value.trim();
+        
+        if (!text) return;
+        
+        comments.unshift({
+            id: Date.now(),
+            user: currentUser.username,
+            userAvatar: (currentUser.fullname || currentUser.username).charAt(0).toUpperCase(),
+            text: text,
+            time: new Date().toISOString(),
+            likes: 0
+        });
+        
+        saveComments();
+        input.value = '';
+        
+        const commentList = document.getElementById('commentList');
+        if (commentList) {
+            commentList.innerHTML = renderComments();
+        }
+        
+        showToast('Izoh qoldirildi!', 'success');
+    }
+    
+    function renderComments() {
+        if (comments.length === 0) {
+            return `<div style="text-align: center; padding: 2rem; color: rgba(255,255,255,0.5);">
+                        <i class="fas fa-comment-dots" style="font-size: 2rem;"></i>
+                        <p>Hali izohlar yo'q. Birinchi bo'lib izoh qoldiring!</p>
+                    </div>`;
+        }
+        
+        return comments.map(comment => `
+            <div class="comment-item">
+                <div class="comment-avatar">${comment.userAvatar}</div>
+                <div class="comment-content">
+                    <div class="comment-user">
+                        ${comment.user}
+                        <span class="comment-time">${formatTime(comment.time)}</span>
+                    </div>
+                    <div class="comment-text">${escapeHtml(comment.text)}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    function formatTime(timestamp) {
+        const date = new Date(timestamp);
+        const now = new Date();
+        const diff = now - date;
+        const minutes = Math.floor(diff / 60000);
+        const hours = Math.floor(diff / 3600000);
+        const days = Math.floor(diff / 86400000);
+        
+        if (minutes < 1) return 'hozir';
+        if (minutes < 60) return `${minutes} daqiqa oldin`;
+        if (hours < 24) return `${hours} soat oldin`;
+        if (days < 7) return `${days} kun oldin`;
+        return date.toLocaleDateString();
+    }
+    
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    function loadRecommendations() {
+        const allAnime = JSON.parse(localStorage.getItem('animeList') || '[]');
+        const recommendations = allAnime.filter(a => a.id !== animeId).slice(0, 6);
+        
+        const grid = document.getElementById('recommendGrid');
+        if (grid) {
+            grid.innerHTML = recommendations.map(anime => `
+                <div class="rec-card" onclick="location.href='anime-detail.html?id=${anime.id}'">
+                    <img src="${anime.image}" onerror="this.src='https://via.placeholder.com/180x120?text=Anime'">
+                    <div class="rec-card-info">
+                        <div class="rec-card-title">${anime.name}</div>
+                        <div style="font-size: 0.7rem; color: #ff6a00;">⭐ ${anime.rating || '8.5'}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+    
+    function saveWatchProgress() {
+        if (currentUser) {
+            let history = JSON.parse(localStorage.getItem(`history_${currentUser.id}`) || '[]');
+            const existing = history.find(h => h.id === animeId);
+            if (existing) {
+                existing.episode = episodeNum;
+                existing.lastWatched = new Date().toISOString();
+            } else {
+                history.unshift({
+                    id: animeId,
+                    episode: episodeNum,
+                    lastWatched: new Date().toISOString()
+                });
+            }
+            localStorage.setItem(`history_${currentUser.id}`, JSON.stringify(history.slice(0, 50)));
+        }
+    }
+    
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.style.borderLeftColor = type === 'success' ? '#4caf50' : '#ff6a00';
+        toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i> ${message}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+    
+    // Initialize
+    loadData();
+</script>
+
+</body>
+</html>
