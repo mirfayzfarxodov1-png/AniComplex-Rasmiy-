@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Tomosha tarixi | AniComplex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background: rgba(10, 10, 20, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover { color: #ff6a00; }
+        
+        .history-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .stats-card {
+            background: rgba(15,15,30,0.5);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            text-align: center;
+        }
+        
+        .stat-item {
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff6a00;
+        }
+        
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(15,15,30,0.5);
+            border-radius: 20px;
+        }
+        
+        .clear-btn {
+            background: rgba(244,67,54,0.8);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .clear-btn:hover {
+            background: #f44336;
+        }
+        
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .history-item {
+            background: rgba(20,20,40,0.7);
+            border-radius: 20px;
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            transition: 0.3s;
+            cursor: pointer;
+            animation: fadeInUp 0.3s ease backwards;
+        }
+        
+        .history-item:hover {
+            transform: translateX(5px);
+            background: rgba(238,9,121,0.1);
+        }
+        
+        .history-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        
+        .history-info {
+            flex: 1;
+        }
+        
+        .history-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        
+        .history-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .history-meta i {
+            color: #ff6a00;
+            margin-right: 4px;
+        }
+        
+        .watch-again {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .watch-again:hover {
+            transform: scale(1.05);
+        }
+        
+        .remove-history {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .remove-history:hover {
+            background: #f44336;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem;
+            background: rgba(15,15,30,0.5);
+            border-radius: 30px;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .browse-btn {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.9);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border-left: 4px solid #4caf50;
+            animation: slideIn 0.3s, fadeOut 0.3s 2.7s forwards;
+            z-index: 1000;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(238,9,121,0.3);
+            border-top-color: #ee0979;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .history-container { padding: 1rem; }
+            .history-item { flex-wrap: wrap; }
+            .history-img { width: 60px; height: 60px; }
+            .watch-again { width: 100%; margin-top: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo"><i class="fas fa-dragon"></i> AniComplex</div>
+    <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Bosh sahifa</a>
+        <a href="anime-list.html"><i class="fas fa-list"></i> Animelar</a>
+        <a href="quiz.html"><i class="fas fa-question-circle"></i> Quiz</a>
+        <a href="profile.html"><i class="fas fa-user"></i> Profil</a>
+    </div>
+</nav>
+
+<div class="history-container">
+    <div class="page-header">
+        <h1><i class="fas fa-history"></i> Tomosha tarixi</h1>
+        <p>Siz tomosha qilgan animelar ro'yxati</p>
+    </div>
+    
+    <div id="content">
+        <div class="spinner"></div>
+        <p style="text-align: center;">Yuklanmoqda...</p>
+    </div>
+</div>
+
+<script>
+    let currentUser = null;
+    let watchHistory = [];
+    let allAnime = [];
+    
+    function loadUserData() {
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const username = localStorage.getItem('username');
+        currentUser = users.find(u => u.username === username);
+        
+        if (!currentUser) {
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        loadHistory();
+    }
+    
+    function loadHistory() {
+        watchHistory = JSON.parse(localStorage.getItem(`history_${currentUser.id}`) || '[]');
+        allAnime = JSON.parse(localStorage.getItem('animeList') || '[]');
+        renderPage();
+    }
+    
+    function getHistoryWithDetails() {
+        return watchHistory.map(item => {
+            const anime = allAnime.find(a => a.id === item.id);
+            return {
+                ...item,
+                anime: anime || { name: 'Noma\'lum anime', image: 'https://via.placeholder.com/80x80?text=Anime' }
+            };
+        }).filter(item => item.anime);
+    }
+    
+    function formatTime(timestamp) {
+        const date = new Date(timestamp);
+        const now = new Date();
+        const diff = now - date;
+        const minutes = Math.floor(diff / 60000);
+        const hours = Math.floor(diff / 3600000);
+        const days = Math.floor(diff / 86400000);
+        
+        if (minutes < 1) return 'hozir';
+        if (minutes < 60) return `${minutes} daqiqa oldin`;
+        if (hours < 24) return `${hours} soat oldin`;
+        if (days < 7) return `${days} kun oldin`;
+        return date.toLocaleDateString('uz-UZ');
+    }
+    
+    function renderPage() {
+        const historyWithDetails = getHistoryWithDetails();
+        const totalEpisodes = historyWithDetails.reduce((sum, h) => sum + (h.episode || 1), 0);
+        
+        if (historyWithDetails.length === 0) {
+            document.getElementById('content').innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-history"></i>
+                    <h3>Tomosha tarixi bo'sh</h3>
+                    <p>Siz hali hech qanday anime tomosha qilmagansiz</p>
+                    <button class="browse-btn" onclick="location.href='anime-list.html'">
+                        <i class="fas fa-play"></i> Tomosha qilishni boshlash
+                    </button>
+                </div>
+            `;
+            return;
+        }
+        
+        const html = `
+            <div class="stats-card">
+                <div class="stat-item">
+                    <div class="stat-number">${historyWithDetails.length}</div>
+                    <div class="stat-label">Tomosha qilingan animelar</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">${totalEpisodes}</div>
+                    <div class="stat-label">Jami tomosha qilingan qismlar</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">${Math.floor(totalEpisodes * 24)}</div>
+                    <div class="stat-label">Daqiqa tomosha</div>
+                </div>
+            </div>
+            
+            <div class="action-bar">
+                <div></div>
+                <button class="clear-btn" onclick="clearAllHistory()">
+                    <i class="fas fa-trash-alt"></i> Butun tarixni tozalash
+                </button>
+            </div>
+            
+            <div class="history-list">
+                ${historyWithDetails.map((item, idx) => `
+                    <div class="history-item" style="animation-delay: ${idx * 0.05}s">
+                        <img class="history-img" src="${item.anime.image}" onerror="this.src='https://via.placeholder.com/80x80?text=Anime'" alt="${item.anime.name}">
+                        <div class="history-info">
+                            <div class="history-title">${item.anime.name}</div>
+                            <div class="history-meta">
+                                <span><i class="fas fa-play-circle"></i> ${item.episode || 1}-qism</span>
+                                <span><i class="fas fa-clock"></i> ${formatTime(item.lastWatched)}</span>
+                                <span><i class="fas fa-star"></i> ${item.anime.rating || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <button class="watch-again" onclick="event.stopPropagation(); watchAgain(${item.id}, ${item.episode || 1})">
+                            <i class="fas fa-play"></i> Qayta tomosha
+                        </button>
+                        <button class="remove-history" onclick="event.stopPropagation(); removeFromHistory(${item.id})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        
+        document.getElementById('content').innerHTML = html;
+    }
+    
+    function watchAgain(animeId, episode) {
+        window.location.href = `watch.html?id=${animeId}&ep=${episode}`;
+    }
+    
+    function removeFromHistory(animeId) {
+        watchHistory = watchHistory.filter(item => item.id !== animeId);
+        localStorage.setItem(`history_${currentUser.id}`, JSON.stringify(watchHistory));
+        renderPage();
+        showToast('Tarixdan o\'chirildi', 'info');
+    }
+    
+    function clearAllHistory() {
+        if (confirm('Barcha tomosha tarixini o\'chirmoqchimisiz? Bu amalni qaytarib bo\'lmaydi!')) {
+            watchHistory = [];
+            localStorage.setItem(`history_${currentUser.id}`, JSON.stringify(watchHistory));
+            renderPage();
+            showToast('Barcha tarix tozalandi', 'success');
+        }
+    }
+    
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.style.borderLeftColor = type === 'success' ? '#4caf50' : '#ff6a00';
+        toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i> ${message}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+    
+    window.watchAgain = watchAgain;
+    window.removeFromHistory = removeFromHistory;
+    window.clearAllHistory = clearAllHistory;
+    
+    loadUserData();
+</script>
+
+</body>
+</html>
