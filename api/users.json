@@ -1,0 +1,55 @@
+{
+  "version": "3.0.0",
+  "lastUpdate": "2024-12-15",
+  "totalUsers": 3,
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "mirfayzfarxodov1@gmail.com",
+      "fullname": "Administrator",
+      "role": "admin",
+      "status": "active",
+      "avatar": "A",
+      "joinDate": "2024-01-01T00:00:00.000Z",
+      "lastLogin": "2024-12-15T10:30:00.000Z",
+      "messages": 0,
+      "favorites": [],
+      "history": []
+    },
+    {
+      "id": 2,
+      "username": "anime_lover",
+      "email": "lover@anicomplex.uz",
+      "fullname": "Anime Lover",
+      "role": "user",
+      "status": "active",
+      "avatar": "A",
+      "joinDate": "2024-06-15T00:00:00.000Z",
+      "lastLogin": "2024-12-14T20:00:00.000Z",
+      "messages": 45,
+      "favorites": [1, 2, 4],
+      "history": [
+        {
+          "id": 1,
+          "episode": 5,
+          "lastWatched": "2024-12-14T18:30:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "username": "shonen_fan",
+      "email": "fan@anicomplex.uz",
+      "fullname": "Shonen Fan",
+      "role": "user",
+      "status": "active",
+      "avatar": "S",
+      "joinDate": "2024-09-20T00:00:00.000Z",
+      "lastLogin": "2024-12-13T22:15:00.000Z",
+      "messages": 12,
+      "favorites": [5, 7],
+      "history": []
+    }
+  ]
+}
