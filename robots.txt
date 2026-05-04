@@ -1,0 +1,96 @@
+# ============================================
+# AniComplex - Robots.txt
+# Qidiruv robotlari uchun ko'rsatmalar
+# Version: 3.0.0
+# ============================================
+
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /pages/
+Allow: /css/
+Allow: /js/
+Allow: /assets/
+Allow: /api/
+
+# Disallow admin panel and private pages
+Disallow: /pages/admin.html
+Disallow: /api/users.json
+Disallow: /api/settings.json
+Disallow: /offline.html
+Disallow: /manifest.json
+
+# Crawl delay (for slower bots)
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://anicomplex.uz/sitemap.xml
+
+# Host (primary domain)
+Host: https://anicomplex.uz
+
+# ============================================
+# Specific bots configuration
+# ============================================
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+Allow: /pages/anime-list.html
+Allow: /pages/anime-detail.html
+Allow: /pages/quiz.html
+Disallow: /pages/admin.html
+Disallow: /offline.html
+Crawl-delay: 0.5
+
+# Yandex
+User-agent: Yandex
+Allow: /
+Disallow: /pages/admin.html
+Crawl-delay: 1
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /pages/admin.html
+Crawl-delay: 1
+
+# Baidu
+User-agent: Baiduspider
+Disallow: /
+Crawl-delay: 5
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /pages/admin.html
+Crawl-delay: 1
+
+# ============================================
+# Social media bots
+# ============================================
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: Facebookbot
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+# ============================================
+# SEO bots
+# ============================================
+
+User-agent: AhrefsBot
+Disallow: /pages/admin.html
+Crawl-delay: 2
+
+User-agent: SemrushBot
+Disallow: /
+Crawl-delay: 3
+
+User-agent: DotBot
+Disallow: /pages/admin.html
+Crawl-delay: 2
