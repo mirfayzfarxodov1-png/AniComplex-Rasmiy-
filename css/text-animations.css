@@ -1,0 +1,475 @@
+/* ============================================================================
+   AniComplex - Text Animations Library
+   Version: 3.0.0
+   Total Lines: 450+
+   Features: Animated text, typing effects, glitch text, neon text
+   ============================================================================ */
+
+/* ============================================
+   1. TYPING ANIMATION
+   ============================================ */
+
+.typing-text {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid #ff6a00;
+    animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #ff6a00; }
+}
+
+/* Multiple lines typing */
+.typing-multi {
+    overflow: hidden;
+    border-right: 3px solid #ff6a00;
+    animation: typing-multi 4s steps(40, end), blink-caret 0.75s step-end infinite;
+    white-space: nowrap;
+}
+
+/* ============================================
+   2. GLITCH TEXT EFFECT
+   ============================================ */
+
+.glitch-text {
+    position: relative;
+    animation: glitch 3s infinite;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch-text::before {
+    animation: glitch-1 0.3s infinite;
+    color: #ff6a00;
+    z-index: -1;
+}
+
+.glitch-text::after {
+    animation: glitch-2 0.3s infinite;
+    color: #ee0979;
+    z-index: -2;
+}
+
+@keyframes glitch {
+    0%, 100% { transform: skew(0deg); }
+    20% { transform: skew(2deg); }
+    40% { transform: skew(-2deg); }
+    60% { transform: skew(1deg); }
+    80% { transform: skew(-1deg); }
+}
+
+@keyframes glitch-1 {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+}
+
+@keyframes glitch-2 {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(2px, -2px); }
+    40% { transform: translate(2px, 2px); }
+    60% { transform: translate(-2px, -2px); }
+    80% { transform: translate(-2px, 2px); }
+}
+
+/* ============================================
+   3. NEON TEXT EFFECT
+   ============================================ */
+
+.neon-text {
+    color: #fff;
+    text-shadow: 
+        0 0 5px #ff6a00,
+        0 0 10px #ff6a00,
+        0 0 20px #ff6a00,
+        0 0 40px #ee0979,
+        0 0 80px #ee0979;
+    animation: neonPulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulse {
+    from {
+        text-shadow: 
+            0 0 5px #ff6a00,
+            0 0 10px #ff6a00,
+            0 0 20px #ff6a00;
+    }
+    to {
+        text-shadow: 
+            0 0 10px #ff6a00,
+            0 0 20px #ff6a00,
+            0 0 40px #ee0979,
+            0 0 80px #ee0979,
+            0 0 120px #ee0979;
+    }
+}
+
+/* ============================================
+   4. REVEAL TEXT ANIMATION
+   ============================================ */
+
+.reveal-text {
+    animation: revealText 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    clip-path: inset(0 100% 0 0);
+}
+
+@keyframes revealText {
+    0% {
+        clip-path: inset(0 100% 0 0);
+        opacity: 0;
+    }
+    100% {
+        clip-path: inset(0 0 0 0);
+        opacity: 1;
+    }
+}
+
+/* Letter by letter reveal */
+.reveal-letters span {
+    display: inline-block;
+    animation: revealLetter 0.05s forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes revealLetter {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   5. WAVE TEXT
+   ============================================ */
+
+.wave-text span {
+    display: inline-block;
+    animation: waveLetter 1.5s ease-in-out infinite;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes waveLetter {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* ============================================
+   6. BOUNCE TEXT
+   ============================================ */
+
+.bounce-text {
+    animation: bounceText 1s ease infinite;
+}
+
+@keyframes bounceText {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Bounce letters */
+.bounce-letters span {
+    display: inline-block;
+    animation: bounceLetter 0.6s ease infinite alternate;
+}
+
+@keyframes bounceLetter {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-20px);
+    }
+}
+
+/* ============================================
+   7. FADE IN TEXT
+   ============================================ */
+
+.fade-text {
+    animation: fadeText 2s ease forwards;
+}
+
+@keyframes fadeText {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   8. SLIDE IN TEXT
+   ============================================ */
+
+.slide-left-text {
+    animation: slideLeftText 0.8s ease forwards;
+    transform: translateX(-100%);
+}
+
+@keyframes slideLeftText {
+    to {
+        transform: translateX(0);
+    }
+}
+
+.slide-right-text {
+    animation: slideRightText 0.8s ease forwards;
+    transform: translateX(100%);
+}
+
+@keyframes slideRightText {
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* ============================================
+   9. ROTATE TEXT
+   ============================================ */
+
+.rotate-text {
+    animation: rotateText 0.6s ease forwards;
+    transform: rotateX(90deg);
+}
+
+@keyframes rotateText {
+    to {
+        transform: rotateX(0);
+    }
+}
+
+/* ============================================
+   10. SCALE TEXT
+   ============================================ */
+
+.scale-text {
+    animation: scaleText 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    transform: scale(0);
+}
+
+@keyframes scaleText {
+    to {
+        transform: scale(1);
+    }
+}
+
+/* ============================================
+   11. SHIMMER TEXT
+   ============================================ */
+
+.shimmer-text {
+    background: linear-gradient(120deg, 
+        #fff 0%, 
+        #fff 40%, 
+        #ff6a00 50%, 
+        #fff 60%, 
+        #fff 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+    to {
+        background-position: 200% center;
+    }
+}
+
+/* ============================================
+   12. GRADIENT TEXT
+   ============================================ */
+
+.gradient-text {
+    background: linear-gradient(135deg, #ff6a00, #ee0979, #ff6a00);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* ============================================
+   13. POP TEXT
+   ============================================ */
+
+.pop-text {
+    animation: popText 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    transform: scale(0);
+}
+
+@keyframes popText {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    80% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   14. FALLING TEXT
+   ============================================ */
+
+.falling-text {
+    animation: fallingText 1s ease forwards;
+    transform: translateY(-100px);
+    opacity: 0;
+}
+
+@keyframes fallingText {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   15. BLUR TEXT
+   ============================================ */
+
+.blur-text {
+    animation: blurText 0.8s ease forwards;
+    filter: blur(10px);
+    opacity: 0;
+}
+
+@keyframes blurText {
+    to {
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   16. FLIP TEXT
+   ============================================ */
+
+.flip-text {
+    animation: flipText 0.6s ease forwards;
+    transform: rotateY(90deg);
+    opacity: 0;
+}
+
+@keyframes flipText {
+    to {
+        transform: rotateY(0);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   17. JIGGLE TEXT
+   ============================================ */
+
+.jiggle-text:hover {
+    animation: jiggle 0.3s ease-in-out;
+}
+
+@keyframes jiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    75% { transform: rotate(-3deg); }
+}
+
+/* ============================================
+   18. PULSE TEXT
+   ============================================ */
+
+.pulse-text {
+    animation: pulseText 2s ease-in-out infinite;
+}
+
+@keyframes pulseText {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+}
+
+/* ============================================
+   19. RAINBOW TEXT
+   ============================================ */
+
+.rainbow-text {
+    animation: rainbow 5s linear infinite;
+}
+
+@keyframes rainbow {
+    0% { color: #ff0000; }
+    14% { color: #ff8800; }
+    28% { color: #ffff00; }
+    42% { color: #00ff00; }
+    57% { color: #0088ff; }
+    71% { color: #8800ff; }
+    85% { color: #ff00ff; }
+    100% { color: #ff0000; }
+}
+
+/* ============================================
+   20. STAMP TEXT
+   ============================================ */
+
+.stamp-text {
+    animation: stampText 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    transform: scale(2);
+    opacity: 0;
+}
+
+@keyframes stampText {
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
