@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Anime detali | AniComplex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        /* Navbar */
+        .navbar {
+            background: rgba(10, 10, 20, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover { color: #ff6a00; }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 1rem 2rem;
+            background: rgba(0,0,0,0.3);
+            font-size: 0.85rem;
+        }
+        
+        .breadcrumb a {
+            color: #ff6a00;
+            text-decoration: none;
+        }
+        
+        /* Anime Detail Container */
+        .detail-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Hero Section */
+        .anime-hero {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: rgba(15, 15, 30, 0.5);
+            border-radius: 30px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .anime-poster {
+            flex-shrink: 0;
+        }
+        
+        .anime-poster img {
+            width: 280px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        
+        .anime-info {
+            flex: 1;
+        }
+        
+        .anime-title {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .anime-title-jp {
+            color: rgba(255,255,255,0.5);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .anime-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .meta-item {
+            background: rgba(255,255,255,0.1);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        .meta-item i {
+            color: #ff6a00;
+            margin-right: 6px;
+        }
+        
+        .anime-rating {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .rating-score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffc107;
+        }
+        
+        .rating-stars i {
+            color: #ffc107;
+            font-size: 1.2rem;
+        }
+        
+        .rating-count {
+            color: rgba(255,255,255,0.5);
+        }
+        
+        .anime-description {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            color: #fff;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(238,9,121,0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+        }
+        
+        .btn-outline:hover {
+            border-color: #ff6a00;
+            background: rgba(255,106,0,0.1);
+        }
+        
+        .btn-favorite.active {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            color: #fff;
+        }
+        
+        /* Episodes Section */
+        .episodes-section {
+            background: rgba(15, 15, 30, 0.5);
+            border-radius: 30px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+        
+        .episode-card {
+            background: rgba(0,0,0,0.5);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .episode-card:hover {
+            background: rgba(238,9,121,0.2);
+            transform: translateY(-3px);
+        }
+        
+        .episode-number {
+            font-weight: bold;
+            color: #ff6a00;
+            margin-bottom: 0.3rem;
+        }
+        
+        .episode-title {
+            font-size: 0.8rem;
+        }
+        
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .info-card {
+            background: rgba(15, 15, 30, 0.5);
+            border-radius: 20px;
+            padding: 1.5rem;
+        }
+        
+        .info-card h3 {
+            margin-bottom: 1rem;
+            color: #ff6a00;
+        }
+        
+        .info-list {
+            list-style: none;
+        }
+        
+        .info-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* Similar Anime */
+        .similar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .similar-card {
+            background: rgba(20,20,40,0.7);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .similar-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .similar-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+        }
+        
+        .similar-card-info {
+            padding: 0.8rem;
+        }
+        
+        .similar-card-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(238,9,121,0.3);
+            border-top-color: #ee0979;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .detail-container { padding: 1rem; }
+            .anime-poster img { width: 200px; }
+            .anime-title { font-size: 1.5rem; }
+            .episodes-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+        }
+        
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.9);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border-left: 4px solid #4caf50;
+            animation: slideIn 0.3s, fadeOut 0.3s 2.7s forwards;
+            z-index: 1000;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo"><i class="fas fa-dragon"></i> AniComplex</div>
+    <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Bosh sahifa</a>
+        <a href="anime-list.html"><i class="fas fa-list"></i> Animelar</a>
+        <a href="quiz.html"><i class="fas fa-question-circle"></i> Quiz</a>
+        <a href="profile.html"><i class="fas fa-user"></i> Profil</a>
+    </div>
+</nav>
+
+<div class="breadcrumb">
+    <a href="index.html">Bosh sahifa</a> / 
+    <a href="anime-list.html">Animelar</a> / 
+    <span id="breadcrumbName">Anime nomi</span>
+</div>
+
+<div class="detail-container">
+    <div id="content">
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>Yuklanmoqda...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get anime ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const animeId = parseInt(urlParams.get('id'));
+    
+    let currentAnime = null;
+    let isFavorite = false;
+    let currentUser = null;
+    
+    // Load anime data
+    function loadAnimeData() {
+        const allAnime = JSON.parse(localStorage.getItem('animeList') || '[]');
+        currentAnime = allAnime.find(a => a.id === animeId);
+        
+        if (!currentAnime) {
+            document.getElementById('content').innerHTML = `
+                <div style="text-align: center; padding: 3rem;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #ff6a00;"></i>
+                    <h2>Anime topilmadi!</h2>
+                    <p>So'ralgan anime mavjud emas.</p>
+                    <a href="anime-list.html" class="btn btn-primary" style="margin-top: 1rem;">Animelar ro'yxatiga qaytish</a>
+                </div>
+            `;
+            return;
+        }
+        
+        document.getElementById('breadcrumbName').textContent = currentAnime.name;
+        loadUserData();
+        renderAnimeDetail();
+    }
+    
+    // Load current user
+    function loadUserData() {
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const username = localStorage.getItem('username');
+        currentUser = users.find(u => u.username === username);
+        
+        if (currentUser) {
+            const favorites = JSON.parse(localStorage.getItem(`favorites_${currentUser.id}`) || '[]');
+            isFavorite = favorites.includes(animeId);
+        }
+    }
+    
+    // Render anime detail
+    function renderAnimeDetail() {
+        const genres = currentAnime.genre ? currentAnime.genre.split(',') : ['Action', 'Adventure'];
+        const episodes = generateEpisodes(currentAnime.episodes || 12);
+        
+        const html = `
+            <div class="anime-hero">
+                <div class="anime-poster">
+                    <img src="${currentAnime.image}" onerror="this.src='https://via.placeholder.com/280x400?text=Anime'" alt="${currentAnime.name}">
+                </div>
+                <div class="anime-info">
+                    <h1 class="anime-title">${currentAnime.name}</h1>
+                    <div class="anime-meta">
+                        <span class="meta-item"><i class="fas fa-calendar"></i> ${currentAnime.year || '2024'}</span>
+                        <span class="meta-item"><i class="fas fa-film"></i> ${currentAnime.episodes || 12} qism</span>
+                        <span class="meta-item"><i class="fas fa-clock"></i> 24 daqiqa</span>
+                        <span class="meta-item"><i class="fas fa-tag"></i> ${currentAnime.status || 'Davom etmoqda'}</span>
+                    </div>
+                    <div class="anime-rating">
+                        <div class="rating-score">${currentAnime.rating || '8.5'}</div>
+                        <div class="rating-stars">
+                            ${generateStars(currentAnime.rating || 8.5)}
+                        </div>
+                        <div class="rating-count">${Math.floor(Math.random() * 10000) + 1000} baho</div>
+                    </div>
+                    <div class="anime-description">
+                        ${currentAnime.desc || 'Bu anime haqida ma\'lumot mavjud emas. Tez orada qo\'shiladi.'}
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="startWatching()">
+                            <i class="fas fa-play"></i> Tomosha qilish
+                        </button>
+                        <button class="btn ${isFavorite ? 'btn-primary' : 'btn-outline'} btn-favorite" onclick="toggleFavorite()">
+                            <i class="fas fa-heart"></i> ${isFavorite ? 'Sevimlilarda' : 'Sevimlilarga qo\'shish'}
+                        </button>
+                        <button class="btn btn-outline" onclick="shareAnime()">
+                            <i class="fas fa-share-alt"></i> Ulashish
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="episodes-section">
+                <h2 class="section-title"><i class="fas fa-list"></i> Qismlar</h2>
+                <div class="episodes-grid">
+                    ${episodes.map(ep => `
+                        <div class="episode-card" onclick="watchEpisode(${ep.number})">
+                            <div class="episode-number">${ep.number}-qism</div>
+                            <div class="episode-title">${ep.title}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-info-circle"></i> Ma'lumot</h3>
+                    <ul class="info-list">
+                        <li><span>Reyting:</span> <span>${currentAnime.rating || '8.5'} / 10</span></li>
+                        <li><span>Holati:</span> <span>${currentAnime.status || 'Davom etmoqda'}</span></li>
+                        <li><span>Qismlar:</span> <span>${currentAnime.episodes || 12}+</span></li>
+                        <li><span>Mavsum:</span> <span>${currentAnime.season || '1'}</span></li>
+                        <li><span>Til:</span> <span>Yaponcha (subtitle O\'zbek)</span></li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-tags"></i> Janrlar</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        ${genres.map(g => `<span class="meta-item">${g.trim()}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-users"></i> Ishlab chiqaruvchilar</h3>
+                    <ul class="info-list">
+                        <li><span>Studio:</span> <span>${currentAnime.studio || 'MAPPA'}</span></li>
+                        <li><span>Rejissyor:</span> <span>${currentAnime.director || 'Ma\'lumot yo\'q'}</span></li>
+                        <li><span>Ssenariy:</span> <span>${currentAnime.writer || 'Ma\'lumot yo\'q'}</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="episodes-section">
+                <h2 class="section-title"><i class="fas fa-star"></i> O'xshash animelar</h2>
+                <div class="similar-grid" id="similarGrid">
+                    <div class="loading" style="padding: 1rem;">Yuklanmoqda...</div>
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('content').innerHTML = html;
+        loadSimilarAnime();
+    }
+    
+    // Generate episodes
+    function generateEpisodes(count) {
+        const episodes = [];
+        for (let i = 1; i <= Math.min(count, 24); i++) {
+            episodes.push({
+                number: i,
+                title: `${i}-qism`
+            });
+        }
+        return episodes;
+    }
+    
+    // Generate stars
+    function generateStars(rating) {
+        const fullStars = Math.floor(rating / 2);
+        const halfStar = (rating / 2) % 1 >= 0.5;
+        let stars = '';
+        for (let i = 0; i < fullStars; i++) stars += '<i class="fas fa-star"></i>';
+        if (halfStar) stars += '<i class="fas fa-star-half-alt"></i>';
+        for (let i = stars.length / 2; i < 5; i++) stars += '<i class="far fa-star"></i>';
+        return stars;
+    }
+    
+    // Load similar anime
+    function loadSimilarAnime() {
+        const allAnime = JSON.parse(localStorage.getItem('animeList') || '[]');
+        const similar = allAnime.filter(a => a.id !== animeId).slice(0, 6);
+        
+        const grid = document.getElementById('similarGrid');
+        if (grid) {
+            grid.innerHTML = similar.map(anime => `
+                <div class="similar-card" onclick="location.href='anime-detail.html?id=${anime.id}'">
+                    <img src="${anime.image}" onerror="this.src='https://via.placeholder.com/180x140?text=Anime'">
+                    <div class="similar-card-info">
+                        <div class="similar-card-title">${anime.name}</div>
+                        <div style="font-size: 0.7rem; color: #ff6a00;">${anime.rating || '8.5'} ⭐</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+    
+    // Toggle favorite
+    function toggleFavorite() {
+        if (!currentUser) {
+            alert('Iltimos, avval kiring!');
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        let favorites = JSON.parse(localStorage.getItem(`favorites_${currentUser.id}`) || '[]');
+        
+        if (isFavorite) {
+            favorites = favorites.filter(id => id !== animeId);
+            showToast('Sevimlilardan o\'chirildi', 'info');
+        } else {
+            favorites.push(animeId);
+            showToast('Sevimlilarga qo\'shildi', 'success');
+        }
+        
+        localStorage.setItem(`favorites_${currentUser.id}`, JSON.stringify(favorites));
+        isFavorite = !isFavorite;
+        
+        const favBtn = document.querySelector('.btn-favorite');
+        if (favBtn) {
+            favBtn.innerHTML = `<i class="fas fa-heart"></i> ${isFavorite ? 'Sevimlilarda' : 'Sevimlilarga qo\'shish'}`;
+            favBtn.className = `btn ${isFavorite ? 'btn-primary' : 'btn-outline'} btn-favorite`;
+        }
+    }
+    
+    // Start watching
+    function startWatching() {
+        watchEpisode(1);
+    }
+    
+    function watchEpisode(episode) {
+        if (currentUser) {
+            let history = JSON.parse(localStorage.getItem(`history_${currentUser.id}`) || '[]');
+            const existing = history.find(h => h.id === animeId);
+            if (existing) {
+                existing.episode = episode;
+                existing.lastWatched = new Date().toISOString();
+            } else {
+                history.unshift({
+                    id: animeId,
+                    episode: episode,
+                    lastWatched: new Date().toISOString()
+                });
+            }
+            localStorage.setItem(`history_${currentUser.id}`, JSON.stringify(history.slice(0, 50)));
+        }
+        
+        window.location.href = `watch.html?id=${animeId}&ep=${episode}`;
+    }
+    
+    function shareAnime() {
+        if (navigator.share) {
+            navigator.share({
+                title: currentAnime.name,
+                text: `${currentAnime.name} - AniComplex da tomosha qiling!`,
+                url: window.location.href
+            });
+        } else {
+            navigator.clipboard.writeText(window.location.href);
+            showToast('Link nusxalandi!', 'success');
+        }
+    }
+    
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.style.borderLeftColor = type === 'success' ? '#4caf50' : '#ff6a00';
+        toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i> ${message}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+    
+    // Initialize
+    loadAnimeData();
+</script>
+
+</body>
+</html>
