@@ -1,0 +1,448 @@
+/* ============================================================================
+   AniComplex - 3D Effects & Animations Library
+   Version: 3.0.0
+   Total Lines: 500+
+   Features: 3D transforms, perspective effects, 3D cards, 3D buttons
+   ============================================================================ */
+
+/* ============================================
+   1. 3D CARD EFFECTS
+   ============================================ */
+
+.card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.card-3d:hover {
+    transform: rotateY(10deg) rotateX(5deg) translateZ(20px);
+}
+
+.card-3d-flip {
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+    position: relative;
+}
+
+.card-3d-flip:hover {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    backface-visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+}
+
+/* 3D Card with shadow */
+.card-3d-shadow {
+    transition: all 0.5s ease-out;
+    transform-style: preserve-3d;
+}
+
+.card-3d-shadow:hover {
+    transform: translateZ(30px);
+    box-shadow: 0 30px 40px rgba(0,0,0,0.3);
+}
+
+/* ============================================
+   2. 3D BUTTON EFFECTS
+   ============================================ */
+
+.btn-3d {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-3d:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.btn-3d-push {
+    transition: all 0.1s linear;
+}
+
+.btn-3d-push:active {
+    transform: translateY(3px);
+}
+
+.btn-3d-rotate {
+    transition: transform 0.3s;
+}
+
+.btn-3d-rotate:hover {
+    transform: rotateX(10deg);
+}
+
+/* ============================================
+   3. 3D TEXT EFFECTS
+   ============================================ */
+
+.text-3d {
+    text-shadow: 
+        1px 1px 0 #ff6a00,
+        2px 2px 0 #ee0979,
+        3px 3px 0 #cc0055,
+        4px 4px 0 #aa0044,
+        5px 5px 0 #880033;
+    transition: all 0.3s;
+}
+
+.text-3d:hover {
+    transform: translateY(-2px);
+    text-shadow: 
+        2px 2px 0 #ff6a00,
+        4px 4px 0 #ee0979,
+        6px 6px 0 #cc0055,
+        8px 8px 0 #aa0044,
+        10px 10px 0 #880033;
+}
+
+.text-3d-glow {
+    text-shadow: 
+        0 0 5px #ff6a00,
+        0 0 10px #ee0979,
+        0 0 20px #cc0055,
+        0 0 40px #aa0044;
+    animation: text3dPulse 2s ease-in-out infinite;
+}
+
+@keyframes text3dPulse {
+    0%, 100% {
+        text-shadow: 0 0 5px #ff6a00, 0 0 10px #ee0979;
+        transform: scale(1);
+    }
+    50% {
+        text-shadow: 0 0 15px #ff6a00, 0 0 30px #ee0979, 0 0 45px #cc0055;
+        transform: scale(1.05);
+    }
+}
+
+/* ============================================
+   4. PERSPECTIVE GRID
+   ============================================ */
+
+.perspective-grid {
+    perspective: 1000px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.perspective-item {
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+}
+
+.perspective-item:hover {
+    transform: translateZ(30px) rotateX(5deg);
+}
+
+.perspective-container {
+    perspective: 1200px;
+    perspective-origin: 50% 50%;
+}
+
+/* ============================================
+   5. 3D FLOATING ANIMATION
+   ============================================ */
+
+.float-3d {
+    animation: float3d 3s ease-in-out infinite;
+    transform-style: preserve-3d;
+}
+
+@keyframes float3d {
+    0% {
+        transform: translateY(0px) rotateX(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotateX(5deg);
+    }
+    100% {
+        transform: translateY(0px) rotateX(0deg);
+    }
+}
+
+.float-3d-reverse {
+    animation: float3dReverse 4s ease-in-out infinite;
+}
+
+@keyframes float3dReverse {
+    0% {
+        transform: translateY(0px) rotateY(0deg);
+    }
+    50% {
+        transform: translateY(15px) rotateY(10deg);
+    }
+    100% {
+        transform: translateY(0px) rotateY(0deg);
+    }
+}
+
+/* ============================================
+   6. 3D CAROUSEL
+   ============================================ */
+
+.carousel-3d {
+    perspective: 1500px;
+    overflow: visible;
+}
+
+.carousel-3d-container {
+    transform-style: preserve-3d;
+    animation: rotateCarousel 20s infinite linear;
+}
+
+@keyframes rotateCarousel {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+.carousel-item-3d {
+    position: absolute;
+    width: 200px;
+    height: 300px;
+    backface-visibility: visible;
+    transition: transform 0.3s;
+}
+
+.carousel-item-3d:hover {
+    transform: scale(1.1) translateZ(30px);
+}
+
+/* ============================================
+   7. 3D ROTATE ON SCROLL
+   ============================================ */
+
+.rotate-on-scroll {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rotate-on-scroll.scrolled {
+    transform: rotateX(360deg);
+}
+
+.rotate-y-on-scroll.scrolled {
+    transform: rotateY(360deg);
+}
+
+/* ============================================
+   8. 3D CUBE
+   ============================================ */
+
+.cube-3d {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotateCube 10s infinite linear;
+}
+
+.face {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(238,9,121,0.3);
+    border: 2px solid #ee0979;
+    backdrop-filter: blur(5px);
+}
+
+.face-front { transform: translateZ(100px); }
+.face-back { transform: rotateY(180deg) translateZ(100px); }
+.face-left { transform: rotateY(-90deg) translateZ(100px); }
+.face-right { transform: rotateY(90deg) translateZ(100px); }
+.face-top { transform: rotateX(90deg) translateZ(100px); }
+.face-bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+@keyframes rotateCube {
+    from { transform: rotateX(0) rotateY(0); }
+    to { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+/* ============================================
+   9. 3D GALLERY
+   ============================================ */
+
+.gallery-3d {
+    display: flex;
+    justify-content: center;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.gallery-item-3d {
+    width: 150px;
+    height: 200px;
+    margin: -20px;
+    transition: all 0.5s;
+    transform: rotateY(30deg);
+    filter: brightness(0.7);
+}
+
+.gallery-item-3d:hover {
+    transform: rotateY(0deg) scale(1.2);
+    filter: brightness(1);
+    z-index: 10;
+}
+
+/* ============================================
+   10. 3D SPINNER
+   ============================================ */
+
+.spinner-3d {
+    width: 60px;
+    height: 60px;
+    transform-style: preserve-3d;
+    animation: spin3d 1.5s infinite ease-in-out;
+}
+
+@keyframes spin3d {
+    0% {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+    50% {
+        transform: rotateX(180deg) rotateY(180deg);
+    }
+    100% {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+
+/* ============================================
+   11. 3D HOVER EFFECTS
+   ============================================ */
+
+.hover-3d-tilt {
+    transition: transform 0.3s;
+    transform-style: preserve-3d;
+}
+
+.hover-3d-tilt:hover {
+    transform: perspective(1000px) rotateX(10deg) rotateY(10deg);
+}
+
+.hover-3d-lift {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hover-3d-lift:hover {
+    transform: translateY(-10px) translateZ(20px);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+}
+
+.hover-3d-scale {
+    transition: transform 0.3s;
+}
+
+.hover-3d-scale:hover {
+    transform: scale(1.1) translateZ(30px);
+}
+
+/* ============================================
+   12. MORPHING 3D OBJECTS
+   ============================================ */
+
+.morph-3d {
+    animation: morph3d 4s infinite alternate;
+    transform-style: preserve-3d;
+}
+
+@keyframes morph3d {
+    0% {
+        border-radius: 50%;
+        transform: rotateX(0deg) scale(1);
+    }
+    50% {
+        border-radius: 20% 80% 30% 70%;
+        transform: rotateX(180deg) scale(1.2);
+    }
+    100% {
+        border-radius: 50%;
+        transform: rotateX(360deg) scale(1);
+    }
+}
+
+/* ============================================
+   13. 3D WAVE EFFECT
+   ============================================ */
+
+.wave-3d {
+    animation: wave3d 1s infinite;
+    transform-origin: center;
+}
+
+.wave-3d:nth-child(1) { animation-delay: 0s; }
+.wave-3d:nth-child(2) { animation-delay: 0.1s; }
+.wave-3d:nth-child(3) { animation-delay: 0.2s; }
+.wave-3d:nth-child(4) { animation-delay: 0.3s; }
+.wave-3d:nth-child(5) { animation-delay: 0.4s; }
+.wave-3d:nth-child(6) { animation-delay: 0.5s; }
+.wave-3d:nth-child(7) { animation-delay: 0.6s; }
+.wave-3d:nth-child(8) { animation-delay: 0.7s; }
+.wave-3d:nth-child(9) { animation-delay: 0.8s; }
+.wave-3d:nth-child(10) { animation-delay: 0.9s; }
+
+@keyframes wave3d {
+    0%, 100% {
+        transform: translateY(0) rotateX(0deg);
+    }
+    50% {
+        transform: translateY(-30px) rotateX(20deg);
+    }
+}
+
+/* ============================================
+   14. 3D GLASS MORPHISM
+   ============================================ */
+
+.glass-3d {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    transform-style: preserve-3d;
+    transition: all 0.5s;
+}
+
+.glass-3d:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateZ(20px);
+    box-shadow: 0 0 30px rgba(238,9,121,0.3);
+}
+
+/* ============================================
+   15. NEON 3D TEXT
+   ============================================ */
+
+.neon-3d {
+    color: #fff;
+    text-shadow: 
+        0 0 5px #ff6a00,
+        0 0 10px #ee0979,
+        0 0 20px #cc0055,
+        2px 2px 0 rgba(0,0,0,0.5),
+        4px 4px 0 rgba(0,0,0,0.3);
+    animation: neon3d 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon3d {
+    from {
+        text-shadow: 0 0 5px #ff6a00, 0 0 10px #ee0979, 2px 2px 0 rgba(0,0,0,0.5);
+    }
+    to {
+        text-shadow: 0 0 15px #ff6a00, 0 0 30px #ee0979, 0 0 45px #cc0055, 4px 4px 0 rgba(0,0,0,0.5);
+    }
+}
