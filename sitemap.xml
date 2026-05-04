@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+    
+    <!-- Asosiy sahifalar -->
+    <url>
+        <loc>https://anicomplex.uz/</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://anicomplex.uz/index.html</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://anicomplex.uz/pages/anime-list.html</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <url>
+        <loc>https://anicomplex.uz/pages/quiz.html</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Foydalanuvchi sahifalari -->
+    <url>
+        <loc>https://anicomplex.uz/login.html</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <url>
+        <loc>https://anicomplex.uz/register.html</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <url>
+        <loc>https://anicomplex.uz/profile.html</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    
+    <url>
+        <loc>https://anicomplex.uz/favorites.html</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    
+    <url>
+        <loc>https://anicomplex.uz/history.html</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    
+    <url>
+        <loc>https://anicomplex.uz/settings.html</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    
+    <!-- Video tomosha sahifalari -->
+    <url>
+        <loc>https://anicomplex.uz/watch.html</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Ma'lumot sahifalari -->
+    <url>
+        <loc>https://anicomplex.uz/about.html</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.4</priority>
+    </url>
+    
+    <url>
+        <loc>https://anicomplex.uz/contact.html</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.4</priority>
+    </url>
+    
+    <url>
+        <loc>https://anicomplex.uz/pages/download.html</loc>
+        <lastmod>2024-12-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- Anime detallari (dinamik) -->
+    <!-- Bu qism backend orqali generatsiya qilinadi -->
+    
+</urlset>
