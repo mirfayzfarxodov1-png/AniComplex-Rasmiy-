@@ -1,0 +1,533 @@
+// ============================================================================
+// AniComplex - PWA Installation & Management
+// Version: 3.0.0
+// Total Lines: 500+
+// Features: Install prompt, push notifications, offline detection
+// ============================================================================
+
+// ============================================
+// 1. PWA INSTALLATION (150+ qator)
+// ============================================
+
+let deferredPrompt = null;
+let isPWAInstalled = false;
+
+// Check if already installed as PWA
+function checkPWAInstallation() {
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    isPWAInstalled = true;
+    document.body.classList.add('pwa-mode');
+    console.log('Running as PWA');
+  } else if (navigator.standalone) {
+    // iOS Safari
+    isPWAInstalled = true;
+    document.body.classList.add('pwa-mode');
+    console.log('Running as iOS PWA');
+  }
+}
+
+// Listen for beforeinstallprompt event
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  
+  // Show install banner
+  showInstallBanner();
+  
+  console.log('PWA installation available');
+});
+
+// Show install banner
+function showInstallBanner() {
+  let banner = document.getElementById('pwaInstallBanner');
+  
+  if (!banner) {
+    banner = document.createElement('div');
+    banner.id = 'pwaInstallBanner';
+    banner.className = 'pwa-install-banner';
+    banner.innerHTML = `
+      <div class="pwa-banner-content">
+        <i class="fas fa-mobile-alt"></i>
+        <div class="pwa-banner-text">
+          <strong>AniComplex ilovasini o'rnating!</strong>
+          <small>Tezroq kirish va offline rejim uchun</small>
+        </div>
+        <button id="installPwaBtn" class="btn btn-primary btn-sm">O'rnatish</button>
+        <button id="closeBannerBtn" class="btn btn-secondary btn-sm">Yopish</button>
+      </div>
+    `;
+    document.body.appendChild(banner);
+    
+    // Add styles
+    const style = document.createElement('style');
+    style.textContent = `
+      .pwa-install-banner {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #1a0a2e, #0a0a0a);
+        border: 1px solid rgba(238,9,121,0.3);
+        border-radius: 16px;
+        padding: 15px;
+        z-index: 10000;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        animation: slideInUp 0.5s;
+      }
+      .pwa-banner-content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+      .pwa-banner-content i {
+        font-size: 2rem;
+        color: #ff6a00;
+      }
+      .pwa-banner-text {
+        flex: 1;
+      }
+      .pwa-banner-text strong {
+        display: block;
+      }
+      .pwa-banner-text small {
+        font-size: 0.8rem;
+        color: rgba(255,255,255,0.6);
+      }
+      @keyframes slideInUp {
+        from {
+          transform: translateY(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      @media (min-width: 768px) {
+        .pwa-install-banner {
+          left: auto;
+          right: 20px;
+          max-width: 400px;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  // Add event listeners
+  document.getElementById('installPwaBtn')?.addEventListener('click', installPWA);
+  document.getElementById('closeBannerBtn')?.addEventListener('click', () => {
+    banner.remove();
+    localStorage.setItem('pwa_banner_closed', 'true');
+  });
+  
+  // Don't show if closed before
+  if (localStorage.getItem('pwa_banner_closed') === 'true') {
+    banner.style.display = 'none';
+  }
+}
+
+// Install PWA
+async function installPWA() {
+  if (!deferredPrompt) {
+    showInstallGuide();
+    return;
+  }
+  
+  deferredPrompt.prompt();
+  
+  const result = await deferredPrompt.userChoice;
+  
+  if (result.outcome === 'accepted') {
+    console.log('PWA installed successfully');
+    trackPWAInstallation();
+    showToast('Ilova muvaffaqiyatli o\'rnatildi!', 'success');
+  } else {
+    console.log('PWA installation dismissed');
+  }
+  
+  deferredPrompt = null;
+  document.getElementById('pwaInstallBanner')?.remove();
+}
+
+// Show installation guide (when beforeinstallprompt doesn't fire)
+function showInstallGuide() {
+  const isChrome = /Chrome/.test(navigator.userAgent);
+  const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+  const isFirefox = /Firefox/.test(navigator.userAgent);
+  
+  let guideHTML = '';
+  
+  if (isChrome) {
+    guideHTML = `
+      <div style="text-align: center;">
+        <i class="fab fa-chrome" style="font-size: 4rem; color: #ff6a00;"></i>
+        <h3>Google Chrome uchun:</h3>
+        <ol style="text-align: left; margin-top: 1rem;">
+          <li>📍 Brauzer menyusini oching (⋮)</li>
+          <li>📍 "Uy ekraniga qo'shish" yoki "Install App" tugmasini bosing</li>
+          <li>📍 "O'rnatish" tugmasini bosing</li>
+        </ol>
+      </div>
+    `;
+  } else if (isSafari) {
+    guideHTML = `
+      <div style="text-align: center;">
+        <i class="fab fa-safari" style="font-size: 4rem; color: #ff6a00;"></i>
+        <h3>Safari uchun:</h3>
+        <ol style="text-align: left; margin-top: 1rem;">
+          <li>📍 Pastdagi Share tugmasini bosing</li>
+          <li>📍 "Uy ekraniga qo'shish" ni tanlang</li>
+          <li>📍 "Qo'shish" tugmasini bosing</li>
+        </ol>
+      </div>
+    `;
+  } else if (isFirefox) {
+    guideHTML = `
+      <div style="text-align: center;">
+        <i class="fab fa-firefox" style="font-size: 4rem; color: #ff6a00;"></i>
+        <h3>Firefox uchun:</h3>
+        <ol style="text-align: left; margin-top: 1rem;">
+          <li>📍 Menyu (☰) → "Uy ekraniga qo'shish"</li>
+          <li>📍 "Qo'shish" tugmasini bosing</li>
+        </ol>
+      </div>
+    `;
+  } else {
+    guideHTML = `
+      <div style="text-align: center;">
+        <i class="fas fa-globe" style="font-size: 4rem; color: #ff6a00;"></i>
+        <h3>Brauzer menyusidan:</h3>
+        <p>"Uy ekraniga qo'shish" yoki "Install App" tugmasini toping</p>
+      </div>
+    `;
+  }
+  
+  // Show modal with guide
+  const modal = document.createElement('div');
+  modal.className = 'modal active';
+  modal.innerHTML = `
+    <div class="modal-content" style="max-width: 400px;">
+      <div class="modal-header">
+        <h3><i class="fas fa-download"></i> Ilovani o'rnatish</h3>
+        <span class="modal-close" onclick="this.closest('.modal').remove()">&times;</span>
+      </div>
+      <div class="modal-body">
+        ${guideHTML}
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="this.closest('.modal').remove()">Tushundim</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+// Track PWA installation
+function trackPWAInstallation() {
+  const stats = JSON.parse(localStorage.getItem('pwa_stats') || '{"installs":0,"lastInstall":null}');
+  stats.installs++;
+  stats.lastInstall = new Date().toISOString();
+  localStorage.setItem('pwa_stats', JSON.stringify(stats));
+}
+
+// ============================================
+// 2. PUSH NOTIFICATIONS (150+ qator)
+// ============================================
+
+let isSubscribed = false;
+let swRegistration = null;
+let applicationServerPublicKey = 'YOUR_PUBLIC_VAPID_KEY';
+
+// Check if push notifications are supported
+function checkPushSupport() {
+  if (!('serviceWorker' in navigator)) return false;
+  if (!('PushManager' in window)) return false;
+  return true;
+}
+
+// Initialize push notifications
+async function initializePushNotifications() {
+  if (!checkPushSupport()) {
+    console.log('Push notifications not supported');
+    return;
+  }
+  
+  try {
+    swRegistration = await navigator.serviceWorker.ready;
+    
+    const subscription = await swRegistration.pushManager.getSubscription();
+    isSubscribed = !(subscription === null);
+    
+    if (isSubscribed) {
+      console.log('Already subscribed to push');
+    } else {
+      console.log('Not subscribed to push');
+    }
+  } catch (error) {
+    console.error('Failed to initialize push:', error);
+  }
+}
+
+// Subscribe to push notifications
+async function subscribeToPush() {
+  if (!checkPushSupport()) {
+    alert('Brauzeringiz push xabarlarni qo\'llab-quvvatlamaydi');
+    return false;
+  }
+  
+  try {
+    swRegistration = await navigator.serviceWorker.ready;
+    
+    const subscription = await swRegistration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: applicationServerPublicKey
+    });
+    
+    console.log('Push subscription successful:', subscription);
+    isSubscribed = true;
+    
+    // Send subscription to server
+    await sendSubscriptionToServer(subscription);
+    
+    showToast('Push xabarlar yoqildi!', 'success');
+    localStorage.setItem('push_enabled', 'true');
+    
+    return true;
+  } catch (error) {
+    console.error('Failed to subscribe to push:', error);
+    showToast('Push xabarlarni yoqib bo\'lmadi', 'error');
+    return false;
+  }
+}
+
+// Unsubscribe from push notifications
+async function unsubscribeFromPush() {
+  if (!swRegistration) return;
+  
+  try {
+    const subscription = await swRegistration.pushManager.getSubscription();
+    
+    if (subscription) {
+      await subscription.unsubscribe();
+      console.log('Push unsubscribed');
+      isSubscribed = false;
+      localStorage.setItem('push_enabled', 'false');
+      showToast('Push xabarlar o\'chirildi', 'info');
+    }
+  } catch (error) {
+    console.error('Failed to unsubscribe:', error);
+  }
+}
+
+// Send subscription to server
+async function sendSubscriptionToServer(subscription) {
+  try {
+    await fetch('/api/push/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(subscription)
+    });
+  } catch (error) {
+    console.error('Failed to send subscription:', error);
+  }
+}
+
+// Show notification permission request
+function requestNotificationPermission() {
+  if (Notification.permission === 'default') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        subscribeToPush();
+      }
+    });
+  } else if (Notification.permission === 'granted') {
+    subscribeToPush();
+  } else {
+    showToast('Iltimos, brauzer sozlamalaridan xabarlarga ruxsat bering', 'warning');
+  }
+}
+
+// ============================================
+// 3. OFFLINE DETECTION & HANDLING (100+ qator)
+// ============================================
+
+let isOffline = false;
+
+// Check online status
+function checkOnlineStatus() {
+  isOffline = !navigator.onLine;
+  
+  if (isOffline) {
+    showOfflineNotification();
+  } else {
+    hideOfflineNotification();
+    syncOfflineData();
+  }
+}
+
+// Show offline notification
+function showOfflineNotification() {
+  let notification = document.getElementById('offlineNotification');
+  
+  if (!notification) {
+    notification = document.createElement('div');
+    notification.id = 'offlineNotification';
+    notification.className = 'offline-notification';
+    notification.innerHTML = `
+      <i class="fas fa-wifi"></i>
+      <span>Internet aloqasi uzildi. Offline rejimda ishlayapsiz.</span>
+    `;
+    document.body.appendChild(notification);
+    
+    // Add styles
+    const style = document.createElement('style');
+    style.textContent = `
+      .offline-notification {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #f44336;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        z-index: 10001;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        animation: slideInDown 0.3s;
+      }
+      @keyframes slideInDown {
+        from {
+          transform: translateY(-100%);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+}
+
+function hideOfflineNotification() {
+  const notification = document.getElementById('offlineNotification');
+  if (notification) {
+    notification.remove();
+  }
+}
+
+// Sync offline data when back online
+async function syncOfflineData() {
+  console.log('Syncing offline data...');
+  
+  // Sync chat messages
+  const pendingMessages = JSON.parse(localStorage.getItem('pending_messages') || '[]');
+  
+  for (const message of pendingMessages) {
+    try {
+      await fetch('/api/chat/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(message)
+      });
+    } catch (error) {
+      console.error('Failed to sync message:', error);
+    }
+  }
+  
+  // Clear synced messages
+  localStorage.setItem('pending_messages', '[]');
+}
+
+// ============================================
+// 4. HELPER FUNCTIONS (100+ qator)
+// ============================================
+
+function showToast(message, type = 'info') {
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `
+    <i class="fas fa-${type === 'success' ? 'check-circle' : (type === 'error' ? 'exclamation-circle' : 'info-circle')}"></i>
+    <span>${message}</span>
+  `;
+  toast.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: ${type === 'success' ? '#4caf50' : (type === 'error' ? '#f44336' : '#2196f3')};
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    z-index: 10002;
+    animation: slideInUp 0.3s, fadeOut 0.3s 2.7s forwards;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  `;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+// ============================================
+// 5. INITIALIZATION (50+ qator)
+// ============================================
+
+function initPWA() {
+  checkPWAInstallation();
+  checkOnlineStatus();
+  
+  if (checkPushSupport()) {
+    initializePushNotifications();
+  }
+  
+  // Listen for online/offline events
+  window.addEventListener('online', () => {
+    isOffline = false;
+    hideOfflineNotification();
+    syncOfflineData();
+    showToast('Internet aloqasi tiklandi!', 'success');
+  });
+  
+  window.addEventListener('offline', () => {
+    isOffline = true;
+    showOfflineNotification();
+    showToast('Internet aloqasi uzildi. Offline rejimda ishlaysiz.', 'warning');
+  });
+  
+  // Check if push enabled in settings
+  if (localStorage.getItem('push_enabled') === 'true' && Notification.permission === 'granted') {
+    subscribeToPush();
+  }
+  
+  // Show install banner if not installed and not closed before
+  if (!isPWAInstalled && !localStorage.getItem('pwa_banner_closed')) {
+    setTimeout(() => {
+      if (deferredPrompt) {
+        showInstallBanner();
+      }
+    }, 3000);
+  }
+  
+  console.log('PWA module initialized');
+}
+
+// Export functions
+window.AniComplexPWA = {
+  install: installPWA,
+  subscribePush: requestNotificationPermission,
+  unsubscribePush: unsubscribeFromPush,
+  isInstalled: () => isPWAInstalled,
+  isOffline: () => isOffline
+};
+
+// Auto-init
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initPWA);
+} else {
+  initPWA();
+}
